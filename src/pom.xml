@@ -142,8 +142,13 @@
         <name>Apache Software Foundation</name>
         <url>http://www.apache.org/</url>
     </organization>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
     <build>
+	    <directory>c:/struts/</directory>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -219,6 +224,13 @@
                   </execution>
                </executions>
             </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+				  <skip>true</skip>
+				</configuration>
+			</plugin>
         </plugins>
         
         <defaultGoal>install</defaultGoal>
