@@ -40,11 +40,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 /**
- * <p>A JavaBean representing the configuration information of a
- * <code>&lt;form-bean&gt;</code> element in a Struts configuration file.<p>
+ * <p>
+ * A JavaBean representing the configuration information of a
+ * <code>&lt;form-bean&gt;</code> element in a Struts configuration file.
+ * <p>
  *
- * @version $Rev: 472728 $ $Date: 2006-01-17 07:26:20 -0500 (Tue, 17 Jan 2006)
- *          $
+ * @version $Rev: 472728 $ $Date: 2006-01-17 07:26:20 -0500 (Tue, 17 Jan 2006) $
  * @since Struts 1.1
  */
 public class FormBeanConfig extends BaseConfig {
@@ -59,8 +60,10 @@ public class FormBeanConfig extends BaseConfig {
     protected HashMap formProperties = new HashMap();
 
     /**
-     * <p>The lockable object we can synchronize on when creating
-     * DynaActionFormClass.</p>
+     * <p>
+     * The lockable object we can synchronize on when creating
+     * DynaActionFormClass.
+     * </p>
      */
     protected String lock = "";
 
@@ -89,10 +92,10 @@ public class FormBeanConfig extends BaseConfig {
     protected boolean extensionProcessed = false;
 
     /**
-     * The unique identifier of this form bean, which is used to reference
-     * this bean in <code>ActionMapping</code> instances as well as for the
-     * name of the request or session attribute under which the corresponding
-     * form bean instance is created or accessed.
+     * The unique identifier of this form bean, which is used to reference this
+     * bean in <code>ActionMapping</code> instances as well as for the name of
+     * the request or session attribute under which the corresponding form bean
+     * instance is created or accessed.
      */
     protected String name = null;
 
@@ -109,10 +112,12 @@ public class FormBeanConfig extends BaseConfig {
     protected boolean restricted = false;
 
     /**
-     * <p>Return the DynaActionFormClass associated with a
-     * DynaActionForm.</p>
+     * <p>
+     * Return the DynaActionFormClass associated with a DynaActionForm.
+     * </p>
      *
-     * @throws IllegalArgumentException if the ActionForm is not dynamic
+     * @throws IllegalArgumentException
+     *             if the ActionForm is not dynamic
      */
     public DynaActionFormClass getDynaActionFormClass() {
         if (dynamic == false) {
@@ -177,18 +182,26 @@ public class FormBeanConfig extends BaseConfig {
     }
 
     /**
-     * <p>Indicates whether a MutableDynaClass is currently restricted.</p>
-     * <p>If so, no changes to the existing registration of property names,
-     * data types, readability, or writeability are allowed.</p>
+     * <p>
+     * Indicates whether a MutableDynaClass is currently restricted.
+     * </p>
+     * <p>
+     * If so, no changes to the existing registration of property names, data
+     * types, readability, or writeability are allowed.
+     * </p>
      */
     public boolean isRestricted() {
         return restricted;
     }
 
     /**
-     * <p>Set whether a MutableDynaClass is currently restricted.</p> <p>If
-     * so, no changes to the existing registration of property names, data
-     * types, readability, or writeability are allowed.</p>
+     * <p>
+     * Set whether a MutableDynaClass is currently restricted.
+     * </p>
+     * <p>
+     * If so, no changes to the existing registration of property names, data
+     * types, readability, or writeability are allowed.
+     * </p>
      */
     public void setRestricted(boolean restricted) {
         this.restricted = restricted;
@@ -197,10 +210,13 @@ public class FormBeanConfig extends BaseConfig {
     // ------------------------------------------------------ Protected Methods
 
     /**
-     * <p>Traces the hierarchy of this object to check if any of the ancestors
-     * is extending this instance.</p>
+     * <p>
+     * Traces the hierarchy of this object to check if any of the ancestors is
+     * extending this instance.
+     * </p>
      *
-     * @param moduleConfig The configuration for the module being configured.
+     * @param moduleConfig
+     *            The configuration for the module being configured.
      * @return true if circular inheritance was detected.
      */
     protected boolean checkCircularInheritance(ModuleConfig moduleConfig) {
@@ -213,8 +229,7 @@ public class FormBeanConfig extends BaseConfig {
             }
 
             // get our ancestor's ancestor
-            FormBeanConfig ancestor =
-                moduleConfig.findFormBeanConfig(ancestorName);
+            FormBeanConfig ancestor = moduleConfig.findFormBeanConfig(ancestorName);
 
             ancestorName = ancestor.getExtends();
         }
@@ -223,15 +238,18 @@ public class FormBeanConfig extends BaseConfig {
     }
 
     /**
-     * <p>Compare the form properties of this bean with that of the given and
-     * copy those that are not present.</p>
+     * <p>
+     * Compare the form properties of this bean with that of the given and copy
+     * those that are not present.
+     * </p>
      *
-     * @param config The form bean config to copy properties from.
+     * @param config
+     *            The form bean config to copy properties from.
      * @see #inheritFrom(FormBeanConfig)
      */
-    protected void inheritFormProperties(FormBeanConfig config)
-        throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, InvocationTargetException {
+    protected void inheritFormProperties(FormBeanConfig config) throws ClassNotFoundException, IllegalAccessException, InstantiationException,
+            InvocationTargetException
+    {
         throwIfConfigured();
 
         // Inherit form property configs
@@ -241,14 +259,11 @@ public class FormBeanConfig extends BaseConfig {
             FormPropertyConfig baseFpc = baseFpcs[i];
 
             // Do we have this prop?
-            FormPropertyConfig prop =
-                this.findFormPropertyConfig(baseFpc.getName());
+            FormPropertyConfig prop = this.findFormPropertyConfig(baseFpc.getName());
 
             if (prop == null) {
                 // We don't have this, so let's copy it
-                prop =
-                    (FormPropertyConfig) RequestUtils.applicationInstance(baseFpc.getClass()
-                                                                                 .getName());
+                prop = (FormPropertyConfig) RequestUtils.applicationInstance(baseFpc.getClass().getName());
 
                 BeanUtils.copyProperties(prop, baseFpc);
                 this.addFormPropertyConfig(prop);
@@ -260,26 +275,30 @@ public class FormBeanConfig extends BaseConfig {
     // --------------------------------------------------------- Public Methods
 
     /**
-     * <p>Create and return an <code>ActionForm</code> instance appropriate to
-     * the information in this <code>FormBeanConfig</code>.</p>
+     * <p>
+     * Create and return an <code>ActionForm</code> instance appropriate to the
+     * information in this <code>FormBeanConfig</code>.
+     * </p>
      *
-     * <p>Although this method is not formally deprecated yet, where possible,
-     * the form which accepts an <code>ActionContext</code> as an argument is
-     * preferred, to help sever direct dependencies on the Servlet API.  As
-     * the ActionContext becomes more familiar in Struts, this method will
-     * almost certainly be deprecated.</p>
+     * <p>
+     * Although this method is not formally deprecated yet, where possible, the
+     * form which accepts an <code>ActionContext</code> as an argument is
+     * preferred, to help sever direct dependencies on the Servlet API. As the
+     * ActionContext becomes more familiar in Struts, this method will almost
+     * certainly be deprecated.
+     * </p>
      *
-     * @param servlet The action servlet
+     * @param servlet
+     *            The action servlet
      * @return ActionForm instance
-     * @throws IllegalAccessException if the Class or the appropriate
-     *                                constructor is not accessible
-     * @throws InstantiationException if this Class represents an abstract
-     *                                class, an array class, a primitive type,
-     *                                or void; or if instantiation fails for
-     *                                some other reason
+     * @throws IllegalAccessException
+     *             if the Class or the appropriate constructor is not accessible
+     * @throws InstantiationException
+     *             if this Class represents an abstract class, an array class, a
+     *             primitive type, or void; or if instantiation fails for some
+     *             other reason
      */
-    public ActionForm createActionForm(ActionServlet servlet)
-        throws IllegalAccessException, InstantiationException {
+    public ActionForm createActionForm(ActionServlet servlet) throws IllegalAccessException, InstantiationException {
         Object obj = null;
 
         // Create a new form bean instance
@@ -299,11 +318,9 @@ public class FormBeanConfig extends BaseConfig {
 
         form.setServlet(servlet);
 
-        if (form instanceof DynaBean
-            && ((DynaBean) form).getDynaClass() instanceof MutableDynaClass) {
+        if (form instanceof DynaBean && ((DynaBean) form).getDynaClass() instanceof MutableDynaClass) {
             DynaBean dynaBean = (DynaBean) form;
-            MutableDynaClass dynaClass =
-                (MutableDynaClass) dynaBean.getDynaClass();
+            MutableDynaClass dynaClass = (MutableDynaClass) dynaBean.getDynaClass();
 
             // Add properties
             dynaClass.setRestricted(false);
@@ -319,33 +336,39 @@ public class FormBeanConfig extends BaseConfig {
         }
 
         if (form instanceof BeanValidatorForm) {
-            ((BeanValidatorForm)form).initialize(this);
+            ((BeanValidatorForm) form).initialize(this);
         }
 
         return form;
     }
 
     /**
-     * <p>Create and return an <code>ActionForm</code> instance appropriate to
-     * the information in this <code>FormBeanConfig</code>.</p>
-     * <p><b>NOTE:</b> If the given <code>ActionContext</code> is not of type
-     * <code>ServletActionContext</code> (or a subclass), then the form which
-     * is returned will have a null <code>servlet</code> property.  Some of
-     * the subclasses of <code>ActionForm</code> included in Struts will later
-     * throw a <code>NullPointerException</code> in this case. </p> <p>TODO:
-     * Find a way to control this direct dependency on the Servlet API.</p>
+     * <p>
+     * Create and return an <code>ActionForm</code> instance appropriate to the
+     * information in this <code>FormBeanConfig</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> If the given <code>ActionContext</code> is not of type
+     * <code>ServletActionContext</code> (or a subclass), then the form which is
+     * returned will have a null <code>servlet</code> property. Some of the
+     * subclasses of <code>ActionForm</code> included in Struts will later throw
+     * a <code>NullPointerException</code> in this case.
+     * </p>
+     * <p>
+     * TODO: Find a way to control this direct dependency on the Servlet API.
+     * </p>
      *
-     * @param context The ActionContext.
+     * @param context
+     *            The ActionContext.
      * @return ActionForm instance
-     * @throws IllegalAccessException if the Class or the appropriate
-     *                                constructor is not accessible
-     * @throws InstantiationException if this Class represents an abstract
-     *                                class, an array class, a primitive type,
-     *                                or void; or if instantiation fails for
-     *                                some other reason
+     * @throws IllegalAccessException
+     *             if the Class or the appropriate constructor is not accessible
+     * @throws InstantiationException
+     *             if this Class represents an abstract class, an array class, a
+     *             primitive type, or void; or if instantiation fails for some
+     *             other reason
      */
-    public ActionForm createActionForm(ActionContext context)
-        throws IllegalAccessException, InstantiationException {
+    public ActionForm createActionForm(ActionContext context) throws IllegalAccessException, InstantiationException {
         ActionServlet actionServlet = null;
 
         if (context instanceof ServletActionContext) {
@@ -358,13 +381,15 @@ public class FormBeanConfig extends BaseConfig {
     }
 
     /**
-     * <p>Checks if the given <code>ActionForm</code> instance is suitable for
-     * use as an alternative to calling this <code>FormBeanConfig</code>
-     * instance's <code>createActionForm</code> method.</p>
+     * <p>
+     * Checks if the given <code>ActionForm</code> instance is suitable for use
+     * as an alternative to calling this <code>FormBeanConfig</code> instance's
+     * <code>createActionForm</code> method.
+     * </p>
      *
-     * @param form an existing form instance that may be reused.
-     * @return true if the given form can be reused as the form for this
-     *         config.
+     * @param form
+     *            an existing form instance that may be reused.
+     * @return true if the given form can be reused as the form for this config.
      */
     public boolean canReuse(ActionForm form) {
         if (form != null) {
@@ -379,12 +404,11 @@ public class FormBeanConfig extends BaseConfig {
             } else {
                 try {
                     // check if the form's class is compatible with the class
-                    //      we're configured for
+                    // we're configured for
                     Class formClass = form.getClass();
 
                     if (form instanceof BeanValidatorForm) {
-                        BeanValidatorForm beanValidatorForm =
-                            (BeanValidatorForm) form;
+                        BeanValidatorForm beanValidatorForm = (BeanValidatorForm) form;
 
                         if (beanValidatorForm.getInstance() instanceof DynaBean) {
                             String formName = beanValidatorForm.getStrutsConfigFormName();
@@ -398,8 +422,7 @@ public class FormBeanConfig extends BaseConfig {
                         formClass = beanValidatorForm.getInstance().getClass();
                     }
 
-                    Class configClass =
-                        ClassUtils.getApplicationClass(this.getType());
+                    Class configClass = ClassUtils.getApplicationClass(this.getType());
 
                     if (configClass.isAssignableFrom(formClass)) {
                         log.debug("Can reuse existing instance (non-dynamic)");
@@ -407,8 +430,7 @@ public class FormBeanConfig extends BaseConfig {
                         return (true);
                     }
                 } catch (Exception e) {
-                    log.debug("Error testing existing instance for reusability; just create a new instance",
-                        e);
+                    log.debug("Error testing existing instance for reusability; just create a new instance", e);
                 }
             }
         }
@@ -417,19 +439,19 @@ public class FormBeanConfig extends BaseConfig {
     }
 
     /**
-     * Add a new <code>FormPropertyConfig</code> instance to the set
-     * associated with this module.
+     * Add a new <code>FormPropertyConfig</code> instance to the set associated
+     * with this module.
      *
-     * @param config The new configuration instance to be added
-     * @throws IllegalArgumentException if this property name has already been
-     *                                  defined
+     * @param config
+     *            The new configuration instance to be added
+     * @throws IllegalArgumentException
+     *             if this property name has already been defined
      */
     public void addFormPropertyConfig(FormPropertyConfig config) {
         throwIfConfigured();
 
         if (formProperties.containsKey(config.getName())) {
-            throw new IllegalArgumentException("Property " + config.getName()
-                + " already defined");
+            throw new IllegalArgumentException("Property " + config.getName() + " already defined");
         }
 
         formProperties.put(config.getName(), config);
@@ -439,19 +461,19 @@ public class FormBeanConfig extends BaseConfig {
      * Return the form property configuration for the specified property name,
      * if any; otherwise return <code>null</code>.
      *
-     * @param name Form property name to find a configuration for
+     * @param name
+     *            Form property name to find a configuration for
      */
     public FormPropertyConfig findFormPropertyConfig(String name) {
         return ((FormPropertyConfig) formProperties.get(name));
     }
 
     /**
-     * Return the form property configurations for this module.  If there are
+     * Return the form property configurations for this module. If there are
      * none, a zero-length array is returned.
      */
     public FormPropertyConfig[] findFormPropertyConfigs() {
-        FormPropertyConfig[] results =
-            new FormPropertyConfig[formProperties.size()];
+        FormPropertyConfig[] results = new FormPropertyConfig[formProperties.size()];
 
         return ((FormPropertyConfig[]) formProperties.values().toArray(results));
     }
@@ -470,33 +492,36 @@ public class FormBeanConfig extends BaseConfig {
     }
 
     /**
-     * <p>Inherit values that have not been overridden from the provided
-     * config object.  Subclasses overriding this method should verify that
-     * the given parameter is of a class that contains a property it is trying
-     * to inherit:</p>
+     * <p>
+     * Inherit values that have not been overridden from the provided config
+     * object. Subclasses overriding this method should verify that the given
+     * parameter is of a class that contains a property it is trying to inherit:
+     * </p>
      *
      * <pre>
      * if (config instanceof MyCustomConfig) {
-     *     MyCustomConfig myConfig =
-     *         (MyCustomConfig) config;
-     *
+     *     MyCustomConfig myConfig = (MyCustomConfig) config;
+     * 
      *     if (getMyCustomProp() == null) {
      *         setMyCustomProp(myConfig.getMyCustomProp());
      *     }
      * }
      * </pre>
      *
-     * <p>If the given <code>config</code> is extending another object, those
+     * <p>
+     * If the given <code>config</code> is extending another object, those
      * extensions should be resolved before it's used as a parameter to this
-     * method.</p>
+     * method.
+     * </p>
      *
-     * @param config The object that this instance will be inheriting its
-     *               values from.
+     * @param config
+     *            The object that this instance will be inheriting its values
+     *            from.
      * @see #processExtends(ModuleConfig)
      */
-    public void inheritFrom(FormBeanConfig config)
-        throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, InvocationTargetException {
+    public void inheritFrom(FormBeanConfig config) throws ClassNotFoundException, IllegalAccessException, InstantiationException,
+            InvocationTargetException
+    {
         throwIfConfigured();
 
         // Inherit values that have not been overridden
@@ -517,17 +542,20 @@ public class FormBeanConfig extends BaseConfig {
     }
 
     /**
-     * <p>Inherit configuration information from the FormBeanConfig that this
-     * instance is extending.  This method verifies that any form bean config
+     * <p>
+     * Inherit configuration information from the FormBeanConfig that this
+     * instance is extending. This method verifies that any form bean config
      * object that it inherits from has also had its processExtends() method
-     * called.</p>
+     * called.
+     * </p>
      *
-     * @param moduleConfig The {@link ModuleConfig} that this bean is from.
+     * @param moduleConfig
+     *            The {@link ModuleConfig} that this bean is from.
      * @see #inheritFrom(FormBeanConfig)
      */
-    public void processExtends(ModuleConfig moduleConfig)
-        throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, InvocationTargetException {
+    public void processExtends(ModuleConfig moduleConfig) throws ClassNotFoundException, IllegalAccessException, InstantiationException,
+            InvocationTargetException
+    {
         if (configured) {
             throw new IllegalStateException("Configuration is frozen");
         }
@@ -535,19 +563,16 @@ public class FormBeanConfig extends BaseConfig {
         String ancestor = getExtends();
 
         if ((!extensionProcessed) && (ancestor != null)) {
-            FormBeanConfig baseConfig =
-                moduleConfig.findFormBeanConfig(ancestor);
+            FormBeanConfig baseConfig = moduleConfig.findFormBeanConfig(ancestor);
 
             if (baseConfig == null) {
-                throw new NullPointerException("Unable to find "
-                    + "form bean '" + ancestor + "' to extend.");
+                throw new NullPointerException("Unable to find " + "form bean '" + ancestor + "' to extend.");
             }
 
             // Check against circule inheritance and make sure the base config's
-            //  own extends have been processed already
+            // own extends have been processed already
             if (checkCircularInheritance(moduleConfig)) {
-                throw new IllegalArgumentException(
-                    "Circular inheritance detected for form bean " + getName());
+                throw new IllegalArgumentException("Circular inheritance detected for form bean " + getName());
             }
 
             // Make sure the ancestor's own extension has been processed.
@@ -565,7 +590,8 @@ public class FormBeanConfig extends BaseConfig {
     /**
      * Remove the specified form property configuration instance.
      *
-     * @param config FormPropertyConfig instance to be removed
+     * @param config
+     *            FormPropertyConfig instance to be removed
      */
     public void removeFormPropertyConfig(FormPropertyConfig config) {
         if (configured) {
@@ -596,13 +622,12 @@ public class FormBeanConfig extends BaseConfig {
 
     /**
      * Return the <code>Class</code> instance for the form bean implementation
-     * configured by this <code>FormBeanConfig</code> instance.  This method
-     * uses the same algorithm as <code>RequestUtils.applicationClass()</code>
-     * but is reproduced to avoid a runtime dependence.
+     * configured by this <code>FormBeanConfig</code> instance. This method uses
+     * the same algorithm as <code>RequestUtils.applicationClass()</code> but is
+     * reproduced to avoid a runtime dependence.
      */
     protected Class formBeanClass() {
-        ClassLoader classLoader =
-            Thread.currentThread().getContextClassLoader();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
         if (classLoader == null) {
             classLoader = this.getClass().getClassLoader();

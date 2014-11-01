@@ -134,6 +134,9 @@ public class RequestProcessor {
      * <p>
      * Initialize this request processor instance.
      * </p>
+     * 
+     * 
+     * Shuliang: this method will be called when the processor was created.
      *
      * @param servlet
      *            The ActionServlet we are associated with
@@ -156,6 +159,9 @@ public class RequestProcessor {
      * Process an <code>HttpServletRequest</code> and create the corresponding
      * <code>HttpServletResponse</code> or dispatch to another resource.
      * </p>
+     * 
+     * Shuliang: 2014/11/1 this method will be called in ActionServlet to
+     * perform actual http request process.
      *
      * @param request
      *            The servlet request we are processing
@@ -210,6 +216,15 @@ public class RequestProcessor {
         // Process any ActionForm bean related to this request
         ActionForm form = processActionForm(request, response, mapping);
 
+        /*
+         * Shuliang:
+         * 
+         * form data populates here???? YES,
+         * there are two request type need to be handled,
+         * 1. multipart request
+         * 2. normal request
+         * 
+         */
         processPopulate(request, response, form, mapping);
 
         // Validate any fields of the ActionForm bean, if applicable
@@ -244,6 +259,9 @@ public class RequestProcessor {
         }
 
         // Call the Action instance itself
+        /*
+         * Shuliang: do Action.execute() method and return the ActionForward object.
+         */
         ActionForward forward = processActionPerform(request, response, action, form, mapping);
 
         // Process the returned ActionForward instance
@@ -340,6 +358,11 @@ public class RequestProcessor {
      */
     protected ActionForm processActionForm(HttpServletRequest request, HttpServletResponse response, ActionMapping mapping) {
         // Create (if necessary) a form bean to use
+
+        /*
+         * Shuliang: there is no data in the new created form!!!! where is the
+         * data from???
+         */
         ActionForm instance = RequestUtils.createActionForm(request, mapping, moduleConfig, servlet);
 
         if (instance == null) {
@@ -394,8 +417,7 @@ public class RequestProcessor {
         String forwardPath = forward.getPath();
         String uri;
 
-        // If the forward can be unaliased into an action, then use the path of
-        // the action
+        // If the forward can be unaliased into an action, then use the path of the action
         String actionIdPath = RequestUtils.actionIdURL(forward, request, servlet);
         if (actionIdPath != null) {
             forwardPath = actionIdPath;
@@ -668,6 +690,9 @@ public class RequestProcessor {
      * trigger the creation of a new <code>HttpSession</code> if necessary.
      * </p>
      *
+     * Shuliang: locale is stored in the http session.
+     * 
+     * 
      * @param request
      *            The servlet request we are processing
      * @param response
@@ -705,6 +730,8 @@ public class RequestProcessor {
      * <code>null</code>.
      * </p>
      *
+     * Shuliang: store the ActionMapping in http request with key mapping_key
+     * 
      * @param request
      *            The servlet request we are processing
      * @param response
@@ -753,6 +780,11 @@ public class RequestProcessor {
      * Otherwise, return the request unchanged.
      * </p>
      *
+     * Shuliang: 2014/11/1 What is multipart request???
+     * 
+     * it must be a POST request because it needs to send data to server.
+     *
+     *
      * @param request
      *            The HttpServletRequest we are processing
      * @return A wrapped request, if the request is multipart; otherwise the
@@ -799,6 +831,8 @@ public class RequestProcessor {
      * If no such path can be identified, create an error response and return
      * <code>null</code>.
      * </p>
+     *
+     * Shuliang: return path info of this http request
      *
      * @param request
      *            The servlet request we are processing
@@ -911,6 +945,8 @@ public class RequestProcessor {
      * completed. The default implementation does nothing.
      * </p>
      *
+     * Shuliang: always return true
+     * 
      * @param request
      *            The servlet request we are processing
      * @param response

@@ -32,12 +32,16 @@ import java.util.Map;
 import java.util.Vector;
 
 /**
- * <p> This class functions as a wrapper around HttpServletRequest to provide
- * working getParameter methods for multipart requests. </p>
+ * <p>
+ * This class functions as a wrapper around HttpServletRequest to provide
+ * working getParameter methods for multipart requests.
+ * </p>
  */
 public class MultipartRequestWrapper extends HttpServletRequestWrapper {
     /**
-     * <p> The parameters for this multipart request </p>
+     * <p>
+     * The parameters for this multipart request
+     * </p>
      */
     protected Map parameters;
 
@@ -47,9 +51,11 @@ public class MultipartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * <p> Sets a parameter for this request.  The parameter is actually
-     * separate from the request parameters, but calling on the getParameter()
-     * methods of this class will work as if they weren't. </p>
+     * <p>
+     * Sets a parameter for this request. The parameter is actually separate
+     * from the request parameters, but calling on the getParameter() methods of
+     * this class will work as if they weren't.
+     * </p>
      */
     public void setParameter(String name, String value) {
         String[] mValue = (String[]) parameters.get(name);
@@ -67,10 +73,12 @@ public class MultipartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * <p> Attempts to get a parameter for this request.  It first looks in
-     * the underlying HttpServletRequest object for the parameter, and if that
+     * <p>
+     * Attempts to get a parameter for this request. It first looks in the
+     * underlying HttpServletRequest object for the parameter, and if that
      * doesn't exist it looks for the parameters retrieved from the multipart
-     * request </p>
+     * request
+     * </p>
      */
     public String getParameter(String name) {
         String value = getRequest().getParameter(name);
@@ -87,9 +95,11 @@ public class MultipartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * <p> Returns the names of the parameters for this request. The
-     * enumeration consists of the normal request parameter names plus the
-     * parameters read from the multipart request </p>
+     * <p>
+     * Returns the names of the parameters for this request. The enumeration
+     * consists of the normal request parameter names plus the parameters read
+     * from the multipart request
+     * </p>
      */
     public Enumeration getParameterNames() {
         Enumeration baseParams = getRequest().getParameterNames();
@@ -110,10 +120,12 @@ public class MultipartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * <p> Returns the values of a parameter in this request. It first looks
-     * in the underlying HttpServletRequest object for the parameter, and if
-     * that doesn't exist it looks for the parameter retrieved from the
-     * multipart request. </p>
+     * <p>
+     * Returns the values of a parameter in this request. It first looks in the
+     * underlying HttpServletRequest object for the parameter, and if that
+     * doesn't exist it looks for the parameter retrieved from the multipart
+     * request.
+     * </p>
      */
     public String[] getParameterValues(String name) {
         String[] value = getRequest().getParameterValues(name);
@@ -126,9 +138,11 @@ public class MultipartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * <p> Combines the parameters stored here with those in the underlying
-     * request. If paramater values in the underlying request take precedence
-     * over those stored here. </p>
+     * <p>
+     * Combines the parameters stored here with those in the underlying request.
+     * If paramater values in the underlying request take precedence over those
+     * stored here.
+     * </p>
      */
     public Map getParameterMap() {
         Map map = new HashMap(parameters);

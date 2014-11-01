@@ -56,8 +56,10 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * <p>General purpose utility methods related to processing a servlet request
- * in the Struts controller framework.</p>
+ * <p>
+ * General purpose utility methods related to processing a servlet request in
+ * the Struts controller framework.
+ * </p>
  *
  * @version $Rev: 560654 $ $Date: 2007-07-28 20:54:02 -0500 (Sat, 28 Jul 2007) $
  */
@@ -65,52 +67,64 @@ public class RequestUtils {
     // ------------------------------------------------------- Static Variables
 
     /**
-     * <p>Commons Logging instance.</p>
+     * <p>
+     * Commons Logging instance.
+     * </p>
      */
     protected static Log log = LogFactory.getLog(RequestUtils.class);
 
     // --------------------------------------------------------- Public Methods
 
     /**
-     * <p>Create and return an absolute URL for the specified context-relative
+     * <p>
+     * Create and return an absolute URL for the specified context-relative
      * path, based on the server and context information in the specified
-     * request.</p>
+     * request.
+     * </p>
      *
-     * @param request The servlet request we are processing
-     * @param path    The context-relative path (must start with '/')
+     * @param request
+     *            The servlet request we are processing
+     * @param path
+     *            The context-relative path (must start with '/')
      * @return absolute URL based on context-relative path
-     * @throws MalformedURLException if we cannot create an absolute URL
+     * @throws MalformedURLException
+     *             if we cannot create an absolute URL
      */
-    public static URL absoluteURL(HttpServletRequest request, String path)
-        throws MalformedURLException {
+    public static URL absoluteURL(HttpServletRequest request, String path) throws MalformedURLException {
         return (new URL(serverURL(request), request.getContextPath() + path));
     }
 
     /**
-     * <p>Return the <code>Class</code> object for the specified fully
-     * qualified class name, from this web application's class loader.</p>
+     * <p>
+     * Return the <code>Class</code> object for the specified fully qualified
+     * class name, from this web application's class loader.
+     * </p>
      *
-     * @param className Fully qualified class name to be loaded
+     * @param className
+     *            Fully qualified class name to be loaded
      * @return Class object
-     * @throws ClassNotFoundException if the class cannot be found
+     * @throws ClassNotFoundException
+     *             if the class cannot be found
      */
-    public static Class applicationClass(String className)
-        throws ClassNotFoundException {
+    public static Class applicationClass(String className) throws ClassNotFoundException {
         return applicationClass(className, null);
     }
 
     /**
-     * <p>Return the <code>Class</code> object for the specified fully
-     * qualified class name, from this web application's class loader.</p>
+     * <p>
+     * Return the <code>Class</code> object for the specified fully qualified
+     * class name, from this web application's class loader.
+     * </p>
      *
-     * @param className   Fully qualified class name to be loaded
-     * @param classLoader The desired classloader to use
+     * @param className
+     *            Fully qualified class name to be loaded
+     * @param classLoader
+     *            The desired classloader to use
      * @return Class object
-     * @throws ClassNotFoundException if the class cannot be found
+     * @throws ClassNotFoundException
+     *             if the class cannot be found
      */
-    public static Class applicationClass(String className,
-        ClassLoader classLoader)
-        throws ClassNotFoundException {
+    public static Class applicationClass(String className, ClassLoader classLoader) throws ClassNotFoundException {
         if (classLoader == null) {
             // Look up the class loader to be used
             classLoader = Thread.currentThread().getContextClassLoader();
@@ -125,66 +139,75 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Return a new instance of the specified fully qualified class name,
-     * after loading the class from this web application's class loader. The
-     * specified class <strong>MUST</strong> have a public zero-arguments
-     * constructor.</p>
+     * <p>
+     * Return a new instance of the specified fully qualified class name, after
+     * loading the class from this web application's class loader. The specified
+     * class <strong>MUST</strong> have a public zero-arguments constructor.
+     * </p>
      *
-     * @param className Fully qualified class name to use
+     * @param className
+     *            Fully qualified class name to use
      * @return new instance of class
-     * @throws ClassNotFoundException if the class cannot be found
-     * @throws IllegalAccessException if the class or its constructor is not
-     *                                accessible
-     * @throws InstantiationException if this class represents an abstract
-     *                                class, an interface, an array class, a
-     *                                primitive type, or void
-     * @throws InstantiationException if this class has no zero-arguments
-     *                                constructor
+     * @throws ClassNotFoundException
+     *             if the class cannot be found
+     * @throws IllegalAccessException
+     *             if the class or its constructor is not accessible
+     * @throws InstantiationException
+     *             if this class represents an abstract class, an interface, an
+     *             array class, a primitive type, or void
+     * @throws InstantiationException
+     *             if this class has no zero-arguments constructor
      */
-    public static Object applicationInstance(String className)
-        throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException {
+    public static Object applicationInstance(String className) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         return applicationInstance(className, null);
     }
 
     /**
-     * <p>Return a new instance of the specified fully qualified class name,
-     * after loading the class from this web application's class loader. The
-     * specified class <strong>MUST</strong> have a public zero-arguments
-     * constructor.</p>
+     * <p>
+     * Return a new instance of the specified fully qualified class name, after
+     * loading the class from this web application's class loader. The specified
+     * class <strong>MUST</strong> have a public zero-arguments constructor.
+     * </p>
      *
-     * @param className   Fully qualified class name to use
-     * @param classLoader The desired classloader to use
+     * @param className
+     *            Fully qualified class name to use
+     * @param classLoader
+     *            The desired classloader to use
      * @return new instance of class
-     * @throws ClassNotFoundException if the class cannot be found
-     * @throws IllegalAccessException if the class or its constructor is not
-     *                                accessible
-     * @throws InstantiationException if this class represents an abstract
-     *                                class, an interface, an array class, a
-     *                                primitive type, or void
-     * @throws InstantiationException if this class has no zero-arguments
-     *                                constructor
+     * @throws ClassNotFoundException
+     *             if the class cannot be found
+     * @throws IllegalAccessException
+     *             if the class or its constructor is not accessible
+     * @throws InstantiationException
+     *             if this class represents an abstract class, an interface, an
+     *             array class, a primitive type, or void
+     * @throws InstantiationException
+     *             if this class has no zero-arguments constructor
      */
-    public static Object applicationInstance(String className,
-        ClassLoader classLoader)
-        throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException {
+    public static Object applicationInstance(String className, ClassLoader classLoader) throws ClassNotFoundException, IllegalAccessException,
+            InstantiationException
+    {
         return (applicationClass(className, classLoader).newInstance());
     }
 
     /**
-     * <p>Create (if necessary) and return an <code>ActionForm</code> instance
-     * appropriate for this request.  If no <code>ActionForm</code> instance
-     * is required, return <code>null</code>.</p>
+     * <p>
+     * Create (if necessary) and return an <code>ActionForm</code> instance
+     * appropriate for this request. If no <code>ActionForm</code> instance is
+     * required, return <code>null</code>.
+     * </p>
      *
-     * @param request      The servlet request we are processing
-     * @param mapping      The action mapping for this request
-     * @param moduleConfig The configuration for this module
-     * @param servlet      The action servlet
+     * @param request
+     *            The servlet request we are processing
+     * @param mapping
+     *            The action mapping for this request
+     * @param moduleConfig
+     *            The configuration for this module
+     * @param servlet
+     *            The action servlet
      * @return ActionForm instance associated with this request
      */
-    public static ActionForm createActionForm(HttpServletRequest request,
-        ActionMapping mapping, ModuleConfig moduleConfig, ActionServlet servlet) {
+    public static ActionForm createActionForm(HttpServletRequest request, ActionMapping mapping, ModuleConfig moduleConfig, ActionServlet servlet) {
         // Is there a form bean associated with this mapping?
         String attribute = mapping.getAttribute();
 
@@ -202,8 +225,7 @@ public class RequestUtils {
             return (null);
         }
 
-        ActionForm instance =
-            lookupActionForm(request, attribute, mapping.getScope());
+        ActionForm instance = lookupActionForm(request, attribute, mapping.getScope());
 
         // Can we recycle the existing form bean instance (if there is one)?
         if ((instance != null) && config.canReuse(instance)) {
@@ -213,12 +235,10 @@ public class RequestUtils {
         return createActionForm(config, servlet);
     }
 
-    private static ActionForm lookupActionForm(HttpServletRequest request,
-        String attribute, String scope) {
+    private static ActionForm lookupActionForm(HttpServletRequest request, String attribute, String scope) {
         // Look up any existing form bean instance
         if (log.isDebugEnabled()) {
-            log.debug(" Looking for ActionForm bean instance in scope '"
-                + scope + "' under attribute key '" + attribute + "'");
+            log.debug(" Looking for ActionForm bean instance in scope '" + scope + "' under attribute key '" + attribute + "'");
         }
 
         ActionForm instance = null;
@@ -235,19 +255,23 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Create and return an <code>ActionForm</code> instance appropriate to
-     * the information in <code>config</code>.</p>
+     * <p>
+     * Create and return an <code>ActionForm</code> instance appropriate to the
+     * information in <code>config</code>.
+     * </p>
      *
-     * <p>Does not perform any checks to see if an existing ActionForm exists
-     * which could be reused.</p>
+     * <p>
+     * Does not perform any checks to see if an existing ActionForm exists which
+     * could be reused.
+     * </p>
      *
-     * @param config  The configuration for the Form bean which is to be
-     *                created.
-     * @param servlet The action servlet
+     * @param config
+     *            The configuration for the Form bean which is to be created.
+     * @param servlet
+     *            The action servlet
      * @return ActionForm instance associated with this request
      */
-    public static ActionForm createActionForm(FormBeanConfig config,
-        ActionServlet servlet) {
+    public static ActionForm createActionForm(FormBeanConfig config, ActionServlet servlet) {
         if (config == null) {
             return (null);
         }
@@ -259,21 +283,21 @@ public class RequestUtils {
             instance = config.createActionForm(servlet);
 
             if (log.isDebugEnabled()) {
-                log.debug(" Creating new "
-                    + (config.getDynamic() ? "DynaActionForm" : "ActionForm")
-                    + " instance of type '" + config.getType() + "'");
+                log.debug(" Creating new " + (config.getDynamic() ? "DynaActionForm" : "ActionForm") + " instance of type '" + config.getType() + "'");
                 log.trace(" --> " + instance);
             }
         } catch (Throwable t) {
-            log.error(servlet.getInternal().getMessage("formBean",
-                    config.getType()), t);
+            log.error(servlet.getInternal().getMessage("formBean", config.getType()), t);
         }
 
         return (instance);
     }
 
     /**
-     * <p>Retrieves the servlet mapping pattern for the specified {@link ActionServlet}.</p>
+     * <p>
+     * Retrieves the servlet mapping pattern for the specified
+     * {@link ActionServlet}.
+     * </p>
      *
      * @return the servlet mapping
      * @see Globals#SERVLET_KEY
@@ -281,17 +305,21 @@ public class RequestUtils {
      */
     public static String getServletMapping(ActionServlet servlet) {
         ServletContext servletContext = servlet.getServletConfig().getServletContext();
-        return (String)servletContext.getAttribute(Globals.SERVLET_KEY);
+        return (String) servletContext.getAttribute(Globals.SERVLET_KEY);
     }
 
     /**
-     * <p>Look up and return current user locale, based on the specified
-     * parameters.</p>
+     * <p>
+     * Look up and return current user locale, based on the specified
+     * parameters.
+     * </p>
      *
-     * @param request The request used to lookup the Locale
-     * @param locale  Name of the session attribute for our user's Locale.  If
-     *                this is <code>null</code>, the default locale key is
-     *                used for the lookup.
+     * @param request
+     *            The request used to lookup the Locale
+     * @param locale
+     *            Name of the session attribute for our user's Locale. If this
+     *            is <code>null</code>, the default locale key is used for the
+     *            lookup.
      * @return current user locale
      * @since Struts 1.2
      */
@@ -309,7 +337,8 @@ public class RequestUtils {
         }
 
         if (userLocale == null) {
-            // Returns Locale based on Accept-Language header or the server default
+            // Returns Locale based on Accept-Language header or the server
+            // default
             userLocale = request.getLocale();
         }
 
@@ -317,51 +346,59 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Populate the properties of the specified JavaBean from the specified
-     * HTTP request, based on matching each parameter name against the
-     * corresponding JavaBeans "property setter" methods in the bean's class.
-     * Suitable conversion is done for argument types as described under
-     * <code>convert()</code>.</p>
+     * <p>
+     * Populate the properties of the specified JavaBean from the specified HTTP
+     * request, based on matching each parameter name against the corresponding
+     * JavaBeans "property setter" methods in the bean's class. Suitable
+     * conversion is done for argument types as described under
+     * <code>convert()</code>.
+     * </p>
      *
-     * @param bean    The JavaBean whose properties are to be set
-     * @param request The HTTP request whose parameters are to be used to
-     *                populate bean properties
-     * @throws ServletException if an exception is thrown while setting
-     *                          property values
+     * @param bean
+     *            The JavaBean whose properties are to be set
+     * @param request
+     *            The HTTP request whose parameters are to be used to populate
+     *            bean properties
+     * @throws ServletException
+     *             if an exception is thrown while setting property values
      */
-    public static void populate(Object bean, HttpServletRequest request)
-        throws ServletException {
+    public static void populate(Object bean, HttpServletRequest request) throws ServletException {
         populate(bean, null, null, request);
     }
 
     /**
-     * <p>Populate the properties of the specified JavaBean from the specified
-     * HTTP request, based on matching each parameter name (plus an optional
-     * prefix and/or suffix) against the corresponding JavaBeans "property
-     * setter" methods in the bean's class. Suitable conversion is done for
-     * argument types as described under <code>setProperties</code>.</p>
+     * <p>
+     * Populate the properties of the specified JavaBean from the specified HTTP
+     * request, based on matching each parameter name (plus an optional prefix
+     * and/or suffix) against the corresponding JavaBeans "property setter"
+     * methods in the bean's class. Suitable conversion is done for argument
+     * types as described under <code>setProperties</code>.
+     * </p>
      *
-     * <p>If you specify a non-null <code>prefix</code> and a non-null
-     * <code>suffix</code>, the parameter name must match
-     * <strong>both</strong> conditions for its value(s) to be used in
-     * populating bean properties. If the request's content type is
-     * "multipart/form-data" and the method is "POST", the
-     * <code>HttpServletRequest</code> object will be wrapped in a
-     * <code>MultipartRequestWrapper</code object.</p>
+     * <p>
+     * If you specify a non-null <code>prefix</code> and a non-null
+     * <code>suffix</code>, the parameter name must match <strong>both</strong>
+     * conditions for its value(s) to be used in populating bean properties. If
+     * the request's content type is "multipart/form-data" and the method is
+     * "POST", the <code>HttpServletRequest</code> object will be wrapped in a
+     * <code>MultipartRequestWrapper</code object.
+     * </p>
      *
-     * @param bean    The JavaBean whose properties are to be set
-     * @param prefix  The prefix (if any) to be prepend to bean property names
-     *                when looking for matching parameters
-     * @param suffix  The suffix (if any) to be appended to bean property
-     *                names when looking for matching parameters
-     * @param request The HTTP request whose parameters are to be used to
-     *                populate bean properties
-     * @throws ServletException if an exception is thrown while setting
-     *                          property values
+     * @param bean
+     *            The JavaBean whose properties are to be set
+     * @param prefix
+     *            The prefix (if any) to be prepend to bean property names when
+     *            looking for matching parameters
+     * @param suffix
+     *            The suffix (if any) to be appended to bean property names when
+     *            looking for matching parameters
+     * @param request
+     *            The HTTP request whose parameters are to be used to populate
+     *            bean properties
+     * @throws ServletException
+     *             if an exception is thrown while setting property values
      */
-    public static void populate(Object bean, String prefix, String suffix,
-        HttpServletRequest request)
-        throws ServletException {
+    public static void populate(Object bean, String prefix, String suffix, HttpServletRequest request) throws ServletException {
         // Build a list of relevant request parameters from this request
         HashMap properties = new HashMap();
 
@@ -380,19 +417,15 @@ public class RequestUtils {
         }
 
         MultipartRequestHandler multipartHandler = null;
-        if ((contentType != null)
-            && (contentType.startsWith("multipart/form-data"))
-            && (method.equalsIgnoreCase("POST"))) {
+        if ((contentType != null) && (contentType.startsWith("multipart/form-data")) && (method.equalsIgnoreCase("POST"))) {
             // Get the ActionServletWrapper from the form bean
             ActionServletWrapper servlet;
 
             if (bean instanceof ActionForm) {
                 servlet = ((ActionForm) bean).getServletWrapper();
             } else {
-                throw new ServletException("bean that's supposed to be "
-                    + "populated from a multipart request is not of type "
-                    + "\"org.apache.struts.action.ActionForm\", but type "
-                    + "\"" + bean.getClass().getName() + "\"");
+                throw new ServletException("bean that's supposed to be " + "populated from a multipart request is not of type "
+                        + "\"org.apache.struts.action.ActionForm\", but type " + "\"" + bean.getClass().getName() + "\"");
             }
 
             // Obtain a MultipartRequestHandler
@@ -403,26 +436,21 @@ public class RequestUtils {
 
                 // Set servlet and mapping info
                 servlet.setServletFor(multipartHandler);
-                multipartHandler.setMapping((ActionMapping) request
-                    .getAttribute(Globals.MAPPING_KEY));
+                multipartHandler.setMapping((ActionMapping) request.getAttribute(Globals.MAPPING_KEY));
 
                 // Initialize multipart request class handler
                 multipartHandler.handleRequest(request);
 
-                //stop here if the maximum length has been exceeded
-                Boolean maxLengthExceeded =
-                    (Boolean) request.getAttribute(MultipartRequestHandler.ATTRIBUTE_MAX_LENGTH_EXCEEDED);
+                // stop here if the maximum length has been exceeded
+                Boolean maxLengthExceeded = (Boolean) request.getAttribute(MultipartRequestHandler.ATTRIBUTE_MAX_LENGTH_EXCEEDED);
 
-                if ((maxLengthExceeded != null)
-                    && (maxLengthExceeded.booleanValue())) {
+                if ((maxLengthExceeded != null) && (maxLengthExceeded.booleanValue())) {
                     ((ActionForm) bean).setMultipartRequestHandler(multipartHandler);
                     return;
                 }
 
-                //retrieve form values and put into properties
-                multipartParameters =
-                    getAllParametersForMultipartRequest(request,
-                        multipartHandler);
+                // retrieve form values and put into properties
+                multipartParameters = getAllParametersForMultipartRequest(request, multipartHandler);
                 names = Collections.enumeration(multipartParameters.keySet());
             }
         }
@@ -448,8 +476,7 @@ public class RequestUtils {
                     continue;
                 }
 
-                stripped =
-                    stripped.substring(0, stripped.length() - suffix.length());
+                stripped = stripped.substring(0, stripped.length() - suffix.length());
             }
 
             Object parameterValue = null;
@@ -485,14 +512,19 @@ public class RequestUtils {
     }
 
     /**
-     * <p>If the given form bean can accept multiple FormFile objects but the user only uploaded a single, then 
-     * the property will not match the form bean type.  This method performs some simple checks to try to accommodate
-     * that situation.</p>
+     * <p>
+     * If the given form bean can accept multiple FormFile objects but the user
+     * only uploaded a single, then the property will not match the form bean
+     * type. This method performs some simple checks to try to accommodate that
+     * situation.
+     * </p>
+     * 
      * @param bean
      * @param name
      * @param parameterValue
-     * @return 
-     * @throws ServletException if the introspection has any errors.
+     * @return
+     * @throws ServletException
+     *             if the introspection has any errors.
      */
     private static Object rationalizeMultipleFileProperty(Object bean, String name, Object parameterValue) throws ServletException {
         if (!(parameterValue instanceof FormFile)) {
@@ -527,45 +559,39 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Try to locate a multipart request handler for this request. First,
-     * look for a mapping-specific handler stored for us under an attribute.
-     * If one is not present, use the global multipart handler, if there is
-     * one.</p>
+     * <p>
+     * Try to locate a multipart request handler for this request. First, look
+     * for a mapping-specific handler stored for us under an attribute. If one
+     * is not present, use the global multipart handler, if there is one.
+     * </p>
      *
-     * @param request The HTTP request for which the multipart handler should
-     *                be found.
+     * @param request
+     *            The HTTP request for which the multipart handler should be
+     *            found.
      * @return the multipart handler to use, or null if none is found.
-     * @throws ServletException if any exception is thrown while attempting to
-     *                          locate the multipart handler.
+     * @throws ServletException
+     *             if any exception is thrown while attempting to locate the
+     *             multipart handler.
      */
-    private static MultipartRequestHandler getMultipartHandler(
-        HttpServletRequest request)
-        throws ServletException {
+    private static MultipartRequestHandler getMultipartHandler(HttpServletRequest request) throws ServletException {
         MultipartRequestHandler multipartHandler = null;
-        String multipartClass =
-            (String) request.getAttribute(Globals.MULTIPART_KEY);
+        String multipartClass = (String) request.getAttribute(Globals.MULTIPART_KEY);
 
         request.removeAttribute(Globals.MULTIPART_KEY);
 
         // Try to initialize the mapping specific request handler
         if (multipartClass != null) {
             try {
-                multipartHandler =
-                    (MultipartRequestHandler) applicationInstance(multipartClass);
+                multipartHandler = (MultipartRequestHandler) applicationInstance(multipartClass);
             } catch (ClassNotFoundException cnfe) {
-                log.error("MultipartRequestHandler class \"" + multipartClass
-                    + "\" in mapping class not found, "
-                    + "defaulting to global multipart class");
+                log.error("MultipartRequestHandler class \"" + multipartClass + "\" in mapping class not found, "
+                        + "defaulting to global multipart class");
             } catch (InstantiationException ie) {
-                log.error("InstantiationException when instantiating "
-                    + "MultipartRequestHandler \"" + multipartClass + "\", "
-                    + "defaulting to global multipart class, exception: "
-                    + ie.getMessage());
+                log.error("InstantiationException when instantiating " + "MultipartRequestHandler \"" + multipartClass + "\", "
+                        + "defaulting to global multipart class, exception: " + ie.getMessage());
             } catch (IllegalAccessException iae) {
-                log.error("IllegalAccessException when instantiating "
-                    + "MultipartRequestHandler \"" + multipartClass + "\", "
-                    + "defaulting to global multipart class, exception: "
-                    + iae.getMessage());
+                log.error("IllegalAccessException when instantiating " + "MultipartRequestHandler \"" + multipartClass + "\", "
+                        + "defaulting to global multipart class, exception: " + iae.getMessage());
             }
 
             if (multipartHandler != null) {
@@ -573,30 +599,22 @@ public class RequestUtils {
             }
         }
 
-        ModuleConfig moduleConfig =
-            ModuleUtils.getInstance().getModuleConfig(request);
+        ModuleConfig moduleConfig = ModuleUtils.getInstance().getModuleConfig(request);
 
         multipartClass = moduleConfig.getControllerConfig().getMultipartClass();
 
         // Try to initialize the global request handler
         if (multipartClass != null) {
             try {
-                multipartHandler =
-                    (MultipartRequestHandler) applicationInstance(multipartClass);
+                multipartHandler = (MultipartRequestHandler) applicationInstance(multipartClass);
             } catch (ClassNotFoundException cnfe) {
-                throw new ServletException("Cannot find multipart class \""
-                    + multipartClass + "\"" + ", exception: "
-                    + cnfe.getMessage());
+                throw new ServletException("Cannot find multipart class \"" + multipartClass + "\"" + ", exception: " + cnfe.getMessage());
             } catch (InstantiationException ie) {
-                throw new ServletException(
-                    "InstantiationException when instantiating "
-                    + "multipart class \"" + multipartClass + "\", exception: "
-                    + ie.getMessage());
+                throw new ServletException("InstantiationException when instantiating " + "multipart class \"" + multipartClass + "\", exception: "
+                        + ie.getMessage());
             } catch (IllegalAccessException iae) {
-                throw new ServletException(
-                    "IllegalAccessException when instantiating "
-                    + "multipart class \"" + multipartClass + "\", exception: "
-                    + iae.getMessage());
+                throw new ServletException("IllegalAccessException when instantiating " + "multipart class \"" + multipartClass + "\", exception: "
+                        + iae.getMessage());
             }
 
             if (multipartHandler != null) {
@@ -608,19 +626,21 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Create a <code>Map</code> containing all of the parameters supplied
-     * for a multipart request, keyed by parameter name. In addition to text
-     * and file elements from the multipart body, query string parameters are
-     * included as well.</p>
+     * <p>
+     * Create a <code>Map</code> containing all of the parameters supplied for a
+     * multipart request, keyed by parameter name. In addition to text and file
+     * elements from the multipart body, query string parameters are included as
+     * well.
+     * </p>
      *
-     * @param request          The (wrapped) HTTP request whose parameters are
-     *                         to be added to the map.
-     * @param multipartHandler The multipart handler used to parse the
-     *                         request.
+     * @param request
+     *            The (wrapped) HTTP request whose parameters are to be added to
+     *            the map.
+     * @param multipartHandler
+     *            The multipart handler used to parse the request.
      * @return the map containing all parameters for this multipart request.
      */
-    private static Map getAllParametersForMultipartRequest(
-        HttpServletRequest request, MultipartRequestHandler multipartHandler) {
+    private static Map getAllParametersForMultipartRequest(HttpServletRequest request, MultipartRequestHandler multipartHandler) {
         Map parameters = new HashMap();
         Hashtable elements = multipartHandler.getAllElements();
         Enumeration e = elements.keys();
@@ -632,9 +652,7 @@ public class RequestUtils {
         }
 
         if (request instanceof MultipartRequestWrapper) {
-            request =
-                (HttpServletRequest) ((MultipartRequestWrapper) request)
-                .getRequest();
+            request = (HttpServletRequest) ((MultipartRequestWrapper) request).getRequest();
             e = request.getParameterNames();
 
             while (e.hasMoreElements()) {
@@ -650,12 +668,15 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Compute the printable representation of a URL, leaving off the
-     * scheme/host/port part if no host is specified. This will typically be
-     * the case for URLs that were originally created from relative or
-     * context-relative URIs.</p>
+     * <p>
+     * Compute the printable representation of a URL, leaving off the
+     * scheme/host/port part if no host is specified. This will typically be the
+     * case for URLs that were originally created from relative or
+     * context-relative URIs.
+     * </p>
      *
-     * @param url URL to render in a printable representation
+     * @param url
+     *            URL to render in a printable representation
      * @return printable representation of a URL
      */
     public static String printableURL(URL url) {
@@ -679,26 +700,29 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Return the context-relative URL that corresponds to the specified
-     * {@link ActionConfig}, relative to the module associated with the
-     * current modules's {@link ModuleConfig}.</p>
+     * <p>
+     * Return the context-relative URL that corresponds to the specified
+     * {@link ActionConfig}, relative to the module associated with the current
+     * modules's {@link ModuleConfig}.
+     * </p>
      *
-     * @param request The servlet request we are processing
-     * @param action  ActionConfig to be evaluated
-     * @param pattern URL pattern used to map the controller servlet
+     * @param request
+     *            The servlet request we are processing
+     * @param action
+     *            ActionConfig to be evaluated
+     * @param pattern
+     *            URL pattern used to map the controller servlet
      * @return context-relative URL relative to the module
      * @since Struts 1.1
      */
-    public static String actionURL(HttpServletRequest request,
-        ActionConfig action, String pattern) {
+    public static String actionURL(HttpServletRequest request, ActionConfig action, String pattern) {
         StringBuffer sb = new StringBuffer();
 
         if (pattern.endsWith("/*")) {
             sb.append(pattern.substring(0, pattern.length() - 2));
             sb.append(action.getPath());
         } else if (pattern.startsWith("*.")) {
-            ModuleConfig appConfig =
-                ModuleUtils.getInstance().getModuleConfig(request);
+            ModuleConfig appConfig = ModuleUtils.getInstance().getModuleConfig(request);
 
             sb.append(appConfig.getPrefix());
             sb.append(action.getPath());
@@ -711,9 +735,11 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Return the context-relative URL that corresponds to the specified
-     * <code>ForwardConfig</code>. The URL is calculated based on the
-     * properties of the {@link ForwardConfig} instance as follows:</p>
+     * <p>
+     * Return the context-relative URL that corresponds to the specified
+     * <code>ForwardConfig</code>. The URL is calculated based on the properties
+     * of the {@link ForwardConfig} instance as follows:
+     * </p>
      *
      * <ul>
      *
@@ -725,16 +751,18 @@ public class RequestUtils {
      * <ul>
      *
      * <li>If the <code>path</code> property value starts with a slash, it is
-     * returned unmodified.</li> <li>If the <code>path</code> property value
-     * does not start with a slash, a slash is prepended.</li>
+     * returned unmodified.</li>
+     * <li>If the <code>path</code> property value does not start with a slash,
+     * a slash is prepended.</li>
      *
-     * </ul></li>
+     * </ul>
+     * </li>
      *
      * <li>Acquire the <code>forwardPattern</code> property from the
-     * <code>ControllerConfig</code> for the application module used to
-     * process this request. If no pattern was configured, default to a
-     * pattern of <code>$M$P</code>, which is compatible with the hard-coded
-     * mapping behavior in Struts 1.0.</li>
+     * <code>ControllerConfig</code> for the application module used to process
+     * this request. If no pattern was configured, default to a pattern of
+     * <code>$M$P</code>, which is compatible with the hard-coded mapping
+     * behavior in Struts 1.0.</li>
      *
      * <li>Process the acquired <code>forwardPattern</code>, performing the
      * following substitutions:
@@ -748,88 +776,97 @@ public class RequestUtils {
      * the specified {@link ForwardConfig}, prepended with a slash if it does
      * not start with one.</li>
      *
-     * <li><strong>$$</strong> - Replaced by a single dollar sign
-     * character.</li>
+     * <li><strong>$$</strong> - Replaced by a single dollar sign character.</li>
      *
      * <li><strong>$x</strong> (where "x" is any charater not listed above) -
-     * Silently omit these two characters from the result value.  (This has
-     * the side effect of causing all other $+letter combinations to be
-     * reserved.)</li>
+     * Silently omit these two characters from the result value. (This has the
+     * side effect of causing all other $+letter combinations to be reserved.)</li>
      *
-     * </ul></li>
+     * </ul>
+     * </li>
      *
      * </ul>
      *
-     * @param request The servlet request we are processing
-     * @param forward ForwardConfig to be evaluated
+     * @param request
+     *            The servlet request we are processing
+     * @param forward
+     *            ForwardConfig to be evaluated
      * @return context-relative URL
      * @since Struts 1.1
      */
-    public static String forwardURL(HttpServletRequest request,
-        ForwardConfig forward) {
+    public static String forwardURL(HttpServletRequest request, ForwardConfig forward) {
         return forwardURL(request, forward, null);
     }
 
     /**
-     * <p>Return the context-relative URL that corresponds to the specified
-     * <code>ForwardConfig</code>. The URL is calculated based on the
-     * properties of the {@link ForwardConfig} instance as follows:</p>
+     * <p>
+     * Return the context-relative URL that corresponds to the specified
+     * <code>ForwardConfig</code>. The URL is calculated based on the properties
+     * of the {@link ForwardConfig} instance as follows:
+     * </p>
      *
      * <ul>
      *
      * <li>If the <code>contextRelative</code> property is set, it is assumed
      * that the <code>path</code> property contains a path that is already
-     * context-relative: <ul>
+     * context-relative:
+     * <ul>
      *
      * <li>If the <code>path</code> property value starts with a slash, it is
-     * returned unmodified.</li> <li>If the <code>path</code> property value
-     * does not start with a slash, a slash is prepended.</li>
+     * returned unmodified.</li>
+     * <li>If the <code>path</code> property value does not start with a slash,
+     * a slash is prepended.</li>
      *
-     * </ul></li>
+     * </ul>
+     * </li>
      *
      * <li>Acquire the <code>forwardPattern</code> property from the
-     * <code>ControllerConfig</code> for the application module used to
-     * process this request. If no pattern was configured, default to a
-     * pattern of <code>$M$P</code>, which is compatible with the hard-coded
-     * mapping behavior in Struts 1.0.</li>
+     * <code>ControllerConfig</code> for the application module used to process
+     * this request. If no pattern was configured, default to a pattern of
+     * <code>$M$P</code>, which is compatible with the hard-coded mapping
+     * behavior in Struts 1.0.</li>
      *
      * <li>Process the acquired <code>forwardPattern</code>, performing the
-     * following substitutions: <ul> <li><strong>$M</strong> - Replaced by the
-     * module prefix for the application module processing this request.</li>
+     * following substitutions:
+     * <ul>
+     * <li><strong>$M</strong> - Replaced by the module prefix for the
+     * application module processing this request.</li>
      *
      * <li><strong>$P</strong> - Replaced by the <code>path</code> property of
      * the specified {@link ForwardConfig}, prepended with a slash if it does
      * not start with one.</li>
      *
-     * <li><strong>$$</strong> - Replaced by a single dollar sign
-     * character.</li>
+     * <li><strong>$$</strong> - Replaced by a single dollar sign character.</li>
      *
      * <li><strong>$x</strong> (where "x" is any charater not listed above) -
-     * Silently omit these two characters from the result value.  (This has
-     * the side effect of causing all other $+letter combinations to be
-     * reserved.)</li>
+     * Silently omit these two characters from the result value. (This has the
+     * side effect of causing all other $+letter combinations to be reserved.)</li>
      *
-     * </ul></li></ul>
+     * </ul>
+     * </li>
+     * </ul>
      *
-     * @param request      The servlet request we are processing
-     * @param forward      ForwardConfig to be evaluated
-     * @param moduleConfig Base forward on this module config.
+     * @param request
+     *            The servlet request we are processing
+     * @param forward
+     *            ForwardConfig to be evaluated
+     * @param moduleConfig
+     *            Base forward on this module config.
      * @return context-relative URL
      * @since Struts 1.2
      */
-    public static String forwardURL(HttpServletRequest request,
-        ForwardConfig forward, ModuleConfig moduleConfig) {
-        //load the current moduleConfig, if null
+    public static String forwardURL(HttpServletRequest request, ForwardConfig forward, ModuleConfig moduleConfig) {
+        // load the current moduleConfig, if null
         if (moduleConfig == null) {
             moduleConfig = ModuleUtils.getInstance().getModuleConfig(request);
         }
 
         String path = forward.getPath();
 
-        //load default prefix
+        // load default prefix
         String prefix = moduleConfig.getPrefix();
 
-        //override prefix if supplied by forward
+        // override prefix if supplied by forward
         if (forward.getModule() != null) {
             prefix = forward.getModule();
 
@@ -841,8 +878,7 @@ public class RequestUtils {
         StringBuffer sb = new StringBuffer();
 
         // Calculate a context relative path for this ForwardConfig
-        String forwardPattern =
-            moduleConfig.getControllerConfig().getForwardPattern();
+        String forwardPattern = moduleConfig.getControllerConfig().getForwardPattern();
 
         if (forwardPattern == null) {
             // Performance optimization for previous default behavior
@@ -902,86 +938,96 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Return the URL representing the current request. This is equivalent
-     * to <code>HttpServletRequest.getRequestURL</code> in Servlet 2.3.</p>
+     * <p>
+     * Return the URL representing the current request. This is equivalent to
+     * <code>HttpServletRequest.getRequestURL</code> in Servlet 2.3.
+     * </p>
      *
-     * @param request The servlet request we are processing
+     * @param request
+     *            The servlet request we are processing
      * @return URL representing the current request
-     * @throws MalformedURLException if a URL cannot be created
+     * @throws MalformedURLException
+     *             if a URL cannot be created
      */
-    public static URL requestURL(HttpServletRequest request)
-        throws MalformedURLException {
+    public static URL requestURL(HttpServletRequest request) throws MalformedURLException {
         StringBuffer url = requestToServerUriStringBuffer(request);
 
         return (new URL(url.toString()));
     }
 
     /**
-     * <p>Return the URL representing the scheme, server, and port number of
-     * the current request. Server-relative URLs can be created by simply
-     * appending the server-relative path (starting with '/') to this.</p>
+     * <p>
+     * Return the URL representing the scheme, server, and port number of the
+     * current request. Server-relative URLs can be created by simply appending
+     * the server-relative path (starting with '/') to this.
+     * </p>
      *
-     * @param request The servlet request we are processing
+     * @param request
+     *            The servlet request we are processing
      * @return URL representing the scheme, server, and port number of the
      *         current request
-     * @throws MalformedURLException if a URL cannot be created
+     * @throws MalformedURLException
+     *             if a URL cannot be created
      */
-    public static URL serverURL(HttpServletRequest request)
-        throws MalformedURLException {
+    public static URL serverURL(HttpServletRequest request) throws MalformedURLException {
         StringBuffer url = requestToServerStringBuffer(request);
 
         return (new URL(url.toString()));
     }
 
     /**
-     * <p>Return the string representing the scheme, server, and port number
-     * of the current request. Server-relative URLs can be created by simply
-     * appending the server-relative path (starting with '/') to this.</p>
+     * <p>
+     * Return the string representing the scheme, server, and port number of the
+     * current request. Server-relative URLs can be created by simply appending
+     * the server-relative path (starting with '/') to this.
+     * </p>
      *
-     * @param request The servlet request we are processing
+     * @param request
+     *            The servlet request we are processing
      * @return URL representing the scheme, server, and port number of the
      *         current request
      * @since Struts 1.2.0
      */
-    public static StringBuffer requestToServerUriStringBuffer(
-        HttpServletRequest request) {
-        StringBuffer serverUri =
-            createServerUriStringBuffer(request.getScheme(),
-                request.getServerName(), request.getServerPort(),
+    public static StringBuffer requestToServerUriStringBuffer(HttpServletRequest request) {
+        StringBuffer serverUri = createServerUriStringBuffer(request.getScheme(), request.getServerName(), request.getServerPort(),
                 request.getRequestURI());
 
         return serverUri;
     }
 
     /**
-     * <p>Return <code>StringBuffer</code> representing the scheme, server,
-     * and port number of the current request. Server-relative URLs can be
-     * created by simply appending the server-relative path (starting with
-     * '/') to this.</p>
+     * <p>
+     * Return <code>StringBuffer</code> representing the scheme, server, and
+     * port number of the current request. Server-relative URLs can be created
+     * by simply appending the server-relative path (starting with '/') to this.
+     * </p>
      *
-     * @param request The servlet request we are processing
+     * @param request
+     *            The servlet request we are processing
      * @return URL representing the scheme, server, and port number of the
      *         current request
      * @since Struts 1.2.0
      */
-    public static StringBuffer requestToServerStringBuffer(
-        HttpServletRequest request) {
-        return createServerStringBuffer(request.getScheme(),
-            request.getServerName(), request.getServerPort());
+    public static StringBuffer requestToServerStringBuffer(HttpServletRequest request) {
+        return createServerStringBuffer(request.getScheme(), request.getServerName(), request.getServerPort());
     }
 
     /**
-     * <p>Return <code>StringBuffer</code> representing the scheme, server,
-     * and port number of the current request.</p>
+     * <p>
+     * Return <code>StringBuffer</code> representing the scheme, server, and
+     * port number of the current request.
+     * </p>
      *
-     * @param scheme The scheme name to use
-     * @param server The server name to use
-     * @param port   The port value to use
+     * @param scheme
+     *            The scheme name to use
+     * @param server
+     *            The server name to use
+     * @param port
+     *            The port value to use
      * @return StringBuffer in the form scheme: server: port
      * @since Struts 1.2.0
      */
-    public static StringBuffer createServerStringBuffer(String scheme,
-        String server, int port) {
+    public static StringBuffer createServerStringBuffer(String scheme, String server, int port) {
         StringBuffer url = new StringBuffer();
 
         if (port < 0) {
@@ -992,8 +1038,7 @@ public class RequestUtils {
         url.append("://");
         url.append(server);
 
-        if ((scheme.equals("http") && (port != 80))
-            || (scheme.equals("https") && (port != 443))) {
+        if ((scheme.equals("http") && (port != 80)) || (scheme.equals("https") && (port != 443))) {
             url.append(':');
             url.append(port);
         }
@@ -1002,18 +1047,23 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Return <code>StringBuffer</code> representing the scheme, server,
-     * and port number of the current request.</p>
+     * <p>
+     * Return <code>StringBuffer</code> representing the scheme, server, and
+     * port number of the current request.
+     * </p>
      *
-     * @param scheme The scheme name to use
-     * @param server The server name to use
-     * @param port   The port value to use
-     * @param uri    The uri value to use
+     * @param scheme
+     *            The scheme name to use
+     * @param server
+     *            The server name to use
+     * @param port
+     *            The port value to use
+     * @param uri
+     *            The uri value to use
      * @return StringBuffer in the form scheme: server: port
      * @since Struts 1.2.0
      */
-    public static StringBuffer createServerUriStringBuffer(String scheme,
-        String server, int port, String uri) {
+    public static StringBuffer createServerUriStringBuffer(String scheme, String server, int port, String uri) {
         StringBuffer serverUri = createServerStringBuffer(scheme, server, port);
 
         serverUri.append(uri);
@@ -1022,15 +1072,21 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Returns the true path of the destination action if the specified forward
-     * is an action-aliased URL. This method version forms the URL based on
-     * the current request; selecting the current module if the forward does not
-     * explicitly contain a module path.</p>
+     * <p>
+     * Returns the true path of the destination action if the specified forward
+     * is an action-aliased URL. This method version forms the URL based on the
+     * current request; selecting the current module if the forward does not
+     * explicitly contain a module path.
+     * </p>
      *
-     * @param forward the forward config
-     * @param request the current request
-     * @param servlet the servlet handling the current request
-     * @return the context-relative URL of the action if the forward has an action identifier; otherwise <code>null</code>.
+     * @param forward
+     *            the forward config
+     * @param request
+     *            the current request
+     * @param servlet
+     *            the servlet handling the current request
+     * @return the context-relative URL of the action if the forward has an
+     *         action identifier; otherwise <code>null</code>.
      * @since Struts 1.3.6
      */
     public static String actionIdURL(ForwardConfig forward, HttpServletRequest request, ActionServlet servlet) {
@@ -1045,14 +1101,19 @@ public class RequestUtils {
     }
 
     /**
-     * <p>Returns the true path of the destination action if the specified forward
-     * is an action-aliased URL. This method version forms the URL based on
-     * the specified module.
+     * <p>
+     * Returns the true path of the destination action if the specified forward
+     * is an action-aliased URL. This method version forms the URL based on the
+     * specified module.
      *
-     * @param originalPath the action-aliased path
-     * @param moduleConfig the module config for this request
-     * @param servlet the servlet handling the current request
-     * @return the context-relative URL of the action if the path has an action identifier; otherwise <code>null</code>.
+     * @param originalPath
+     *            the action-aliased path
+     * @param moduleConfig
+     *            the module config for this request
+     * @param servlet
+     *            the servlet handling the current request
+     * @return the context-relative URL of the action if the path has an action
+     *         identifier; otherwise <code>null</code>.
      * @since Struts 1.3.6
      */
     public static String actionIdURL(String originalPath, ModuleConfig moduleConfig, ActionServlet servlet) {
@@ -1089,7 +1150,7 @@ public class RequestUtils {
         if (mapping.startsWith("*")) {
             actionIdPath.append(path);
             actionIdPath.append(mapping.substring(1));
-        } else if (mapping.startsWith("/")) {  // implied ends with a *
+        } else if (mapping.startsWith("/")) { // implied ends with a *
             mapping = mapping.substring(0, mapping.length() - 1);
             if (mapping.endsWith("/") && path.startsWith("/")) {
                 actionIdPath.append(mapping);
