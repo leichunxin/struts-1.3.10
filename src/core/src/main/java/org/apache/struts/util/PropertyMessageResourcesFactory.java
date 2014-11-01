@@ -20,9 +20,8 @@
  */
 package org.apache.struts.util;
 
-
 /**
- * Factory for <code>PropertyMessageResources</code> instances.  The
+ * Factory for <code>PropertyMessageResources</code> instances. The
  * configuration paramter for such instances is the base Java package name of
  * the resources entries from which our keys and values will be loaded.
  *
@@ -35,11 +34,11 @@ public class PropertyMessageResourcesFactory extends MessageResourcesFactory {
      * Create and return a newly instansiated <code>MessageResources</code>.
      * This method must be implemented by concrete subclasses.
      *
-     * @param config Configuration parameter(s) for the requested bundle
+     * @param config
+     *            Configuration parameter(s) for the requested bundle
      */
     public MessageResources createResources(String config) {
-        PropertyMessageResources messageResources =
-               new PropertyMessageResources(this, config, this.returnNull);
+        PropertyMessageResources messageResources = new PropertyMessageResources(this, config, this.returnNull);
         String mode = null;
         if (getConfig() != null) {
             mode = getConfig().getProperty("mode");

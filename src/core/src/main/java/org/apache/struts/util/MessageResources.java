@@ -35,18 +35,21 @@ import java.util.Locale;
  * Locale-sensitive messages from underlying resource locations of an
  * unspecified design, and optionally utilizing the <code>MessageFormat</code>
  * class to produce internationalized messages with parametric replacement.
- * <p> Calls to <code>getMessage()</code> variants without a
- * <code>Locale</code> argument are presumed to be requesting a message string
- * in the default <code>Locale</code> for this JVM. <p> Calls to
- * <code>getMessage()</code> with an unknown key, or an unknown
+ * <p>
+ * Calls to <code>getMessage()</code> variants without a <code>Locale</code>
+ * argument are presumed to be requesting a message string in the default
+ * <code>Locale</code> for this JVM.
+ * <p>
+ * Calls to <code>getMessage()</code> with an unknown key, or an unknown
  * <code>Locale</code> will return <code>null</code> if the
- * <code>returnNull</code> property is set to <code>true</code>.  Otherwise, a
- * suitable error message will be returned instead. <p> <strong>IMPLEMENTATION
- * NOTE</strong> - Classes that extend this class must be Serializable so that
- * instances may be used in distributable application server environments.
+ * <code>returnNull</code> property is set to <code>true</code>. Otherwise, a
+ * suitable error message will be returned instead.
+ * <p>
+ * <strong>IMPLEMENTATION NOTE</strong> - Classes that extend this class must be
+ * Serializable so that instances may be used in distributable application
+ * server environments.
  *
- * @version $Rev: 471754 $ $Date: 2005-08-29 23:57:50 -0400 (Mon, 29 Aug 2005)
- *          $
+ * @version $Rev: 471754 $ $Date: 2005-08-29 23:57:50 -0400 (Mon, 29 Aug 2005) $
  */
 public abstract class MessageResources implements Serializable {
     // ------------------------------------------------------------- Properties
@@ -100,27 +103,28 @@ public abstract class MessageResources implements Serializable {
     // ----------------------------------------------------------- Constructors
 
     /**
-     * Construct a new MessageResources according to the specified
-     * parameters.
+     * Construct a new MessageResources according to the specified parameters.
      *
-     * @param factory The MessageResourcesFactory that created us
-     * @param config  The configuration parameter for this MessageResources
+     * @param factory
+     *            The MessageResourcesFactory that created us
+     * @param config
+     *            The configuration parameter for this MessageResources
      */
     public MessageResources(MessageResourcesFactory factory, String config) {
         this(factory, config, false);
     }
 
     /**
-     * Construct a new MessageResources according to the specified
-     * parameters.
+     * Construct a new MessageResources according to the specified parameters.
      *
-     * @param factory    The MessageResourcesFactory that created us
-     * @param config     The configuration parameter for this
-     *                   MessageResources
-     * @param returnNull The returnNull property we should initialize with
+     * @param factory
+     *            The MessageResourcesFactory that created us
+     * @param config
+     *            The configuration parameter for this MessageResources
+     * @param returnNull
+     *            The returnNull property we should initialize with
      */
-    public MessageResources(MessageResourcesFactory factory, String config,
-        boolean returnNull) {
+    public MessageResources(MessageResourcesFactory factory, String config, boolean returnNull) {
         super();
         this.factory = factory;
         this.config = config;
@@ -159,8 +163,9 @@ public abstract class MessageResources implements Serializable {
      * Indicates that a <code>null</code> is returned instead of an error
      * message string if an unknown Locale or key is requested.
      *
-     * @param returnNull true Indicates that a <code>null</code> is returned
-     *                   if an unknown Locale or key is requested.
+     * @param returnNull
+     *            true Indicates that a <code>null</code> is returned if an
+     *            unknown Locale or key is requested.
      */
     public void setReturnNull(boolean returnNull) {
         this.returnNull = returnNull;
@@ -177,8 +182,8 @@ public abstract class MessageResources implements Serializable {
     }
 
     /**
-     * Set whether 'escape processing' should be performed on the error
-     * message string.
+     * Set whether 'escape processing' should be performed on the error message
+     * string.
      *
      * @since Struts 1.2.8
      */
@@ -191,7 +196,8 @@ public abstract class MessageResources implements Serializable {
     /**
      * Returns a text message for the specified key, for the default Locale.
      *
-     * @param key The message key to look up
+     * @param key
+     *            The message key to look up
      */
     public String getMessage(String key) {
         return this.getMessage((Locale) null, key, null);
@@ -201,8 +207,10 @@ public abstract class MessageResources implements Serializable {
      * Returns a text message after parametric replacement of the specified
      * parameter placeholders.
      *
-     * @param key  The message key to look up
-     * @param args An array of replacement parameters for placeholders
+     * @param key
+     *            The message key to look up
+     * @param args
+     *            An array of replacement parameters for placeholders
      */
     public String getMessage(String key, Object[] args) {
         return this.getMessage((Locale) null, key, args);
@@ -212,8 +220,10 @@ public abstract class MessageResources implements Serializable {
      * Returns a text message after parametric replacement of the specified
      * parameter placeholders.
      *
-     * @param key  The message key to look up
-     * @param arg0 The replacement for placeholder {0} in the message
+     * @param key
+     *            The message key to look up
+     * @param arg0
+     *            The replacement for placeholder {0} in the message
      */
     public String getMessage(String key, Object arg0) {
         return this.getMessage((Locale) null, key, arg0);
@@ -223,9 +233,12 @@ public abstract class MessageResources implements Serializable {
      * Returns a text message after parametric replacement of the specified
      * parameter placeholders.
      *
-     * @param key  The message key to look up
-     * @param arg0 The replacement for placeholder {0} in the message
-     * @param arg1 The replacement for placeholder {1} in the message
+     * @param key
+     *            The message key to look up
+     * @param arg0
+     *            The replacement for placeholder {0} in the message
+     * @param arg1
+     *            The replacement for placeholder {1} in the message
      */
     public String getMessage(String key, Object arg0, Object arg1) {
         return this.getMessage((Locale) null, key, arg0, arg1);
@@ -235,10 +248,14 @@ public abstract class MessageResources implements Serializable {
      * Returns a text message after parametric replacement of the specified
      * parameter placeholders.
      *
-     * @param key  The message key to look up
-     * @param arg0 The replacement for placeholder {0} in the message
-     * @param arg1 The replacement for placeholder {1} in the message
-     * @param arg2 The replacement for placeholder {2} in the message
+     * @param key
+     *            The message key to look up
+     * @param arg0
+     *            The replacement for placeholder {0} in the message
+     * @param arg1
+     *            The replacement for placeholder {1} in the message
+     * @param arg2
+     *            The replacement for placeholder {2} in the message
      */
     public String getMessage(String key, Object arg0, Object arg1, Object arg2) {
         return this.getMessage((Locale) null, key, arg0, arg1, arg2);
@@ -248,40 +265,50 @@ public abstract class MessageResources implements Serializable {
      * Returns a text message after parametric replacement of the specified
      * parameter placeholders.
      *
-     * @param key  The message key to look up
-     * @param arg0 The replacement for placeholder {0} in the message
-     * @param arg1 The replacement for placeholder {1} in the message
-     * @param arg2 The replacement for placeholder {2} in the message
-     * @param arg3 The replacement for placeholder {3} in the message
+     * @param key
+     *            The message key to look up
+     * @param arg0
+     *            The replacement for placeholder {0} in the message
+     * @param arg1
+     *            The replacement for placeholder {1} in the message
+     * @param arg2
+     *            The replacement for placeholder {2} in the message
+     * @param arg3
+     *            The replacement for placeholder {3} in the message
      */
-    public String getMessage(String key, Object arg0, Object arg1, Object arg2,
-        Object arg3) {
+    public String getMessage(String key, Object arg0, Object arg1, Object arg2, Object arg3) {
         return this.getMessage((Locale) null, key, arg0, arg1, arg2, arg3);
     }
 
     /**
      * Returns a text message for the specified key, for the default Locale. A
-     * null string result will be returned by this method if no relevant
-     * message resource is found for this key or Locale, if the
-     * <code>returnNull</code> property is set.  Otherwise, an appropriate
-     * error message will be returned. <p> This method must be implemented by
-     * a concrete subclass.
+     * null string result will be returned by this method if no relevant message
+     * resource is found for this key or Locale, if the <code>returnNull</code>
+     * property is set. Otherwise, an appropriate error message will be
+     * returned.
+     * <p>
+     * This method must be implemented by a concrete subclass.
      *
-     * @param locale The requested message Locale, or <code>null</code> for
-     *               the system default Locale
-     * @param key    The message key to look up
+     * @param locale
+     *            The requested message Locale, or <code>null</code> for the
+     *            system default Locale
+     * @param key
+     *            The message key to look up
      */
     public abstract String getMessage(Locale locale, String key);
 
     /**
      * Returns a text message after parametric replacement of the specified
-     * parameter placeholders.  A null string result will be returned by this
+     * parameter placeholders. A null string result will be returned by this
      * method if no resource bundle has been configured.
      *
-     * @param locale The requested message Locale, or <code>null</code> for
-     *               the system default Locale
-     * @param key    The message key to look up
-     * @param args   An array of replacement parameters for placeholders
+     * @param locale
+     *            The requested message Locale, or <code>null</code> for the
+     *            system default Locale
+     * @param key
+     *            The message key to look up
+     * @param args
+     *            An array of replacement parameters for placeholders
      */
     public String getMessage(Locale locale, String key, Object[] args) {
         // Cache MessageFormat instances as they are accessed
@@ -290,6 +317,8 @@ public abstract class MessageResources implements Serializable {
         }
 
         MessageFormat format = null;
+        
+        // Shuliang: prefixed by locale
         String formatKey = messageKey(locale, key);
 
         synchronized (formats) {
@@ -313,13 +342,16 @@ public abstract class MessageResources implements Serializable {
 
     /**
      * Returns a text message after parametric replacement of the specified
-     * parameter placeholders.  A null string result will never be returned by
+     * parameter placeholders. A null string result will never be returned by
      * this method.
      *
-     * @param locale The requested message Locale, or <code>null</code> for
-     *               the system default Locale
-     * @param key    The message key to look up
-     * @param arg0   The replacement for placeholder {0} in the message
+     * @param locale
+     *            The requested message Locale, or <code>null</code> for the
+     *            system default Locale
+     * @param key
+     *            The message key to look up
+     * @param arg0
+     *            The replacement for placeholder {0} in the message
      */
     public String getMessage(Locale locale, String key, Object arg0) {
         return this.getMessage(locale, key, new Object[] { arg0 });
@@ -327,14 +359,18 @@ public abstract class MessageResources implements Serializable {
 
     /**
      * Returns a text message after parametric replacement of the specified
-     * parameter placeholders.  A null string result will never be returned by
+     * parameter placeholders. A null string result will never be returned by
      * this method.
      *
-     * @param locale The requested message Locale, or <code>null</code> for
-     *               the system default Locale
-     * @param key    The message key to look up
-     * @param arg0   The replacement for placeholder {0} in the message
-     * @param arg1   The replacement for placeholder {1} in the message
+     * @param locale
+     *            The requested message Locale, or <code>null</code> for the
+     *            system default Locale
+     * @param key
+     *            The message key to look up
+     * @param arg0
+     *            The replacement for placeholder {0} in the message
+     * @param arg1
+     *            The replacement for placeholder {1} in the message
      */
     public String getMessage(Locale locale, String key, Object arg0, Object arg1) {
         return this.getMessage(locale, key, new Object[] { arg0, arg1 });
@@ -342,57 +378,68 @@ public abstract class MessageResources implements Serializable {
 
     /**
      * Returns a text message after parametric replacement of the specified
-     * parameter placeholders.  A null string result will never be returned by
+     * parameter placeholders. A null string result will never be returned by
      * this method.
      *
-     * @param locale The requested message Locale, or <code>null</code> for
-     *               the system default Locale
-     * @param key    The message key to look up
-     * @param arg0   The replacement for placeholder {0} in the message
-     * @param arg1   The replacement for placeholder {1} in the message
-     * @param arg2   The replacement for placeholder {2} in the message
+     * @param locale
+     *            The requested message Locale, or <code>null</code> for the
+     *            system default Locale
+     * @param key
+     *            The message key to look up
+     * @param arg0
+     *            The replacement for placeholder {0} in the message
+     * @param arg1
+     *            The replacement for placeholder {1} in the message
+     * @param arg2
+     *            The replacement for placeholder {2} in the message
      */
-    public String getMessage(Locale locale, String key, Object arg0,
-        Object arg1, Object arg2) {
+    public String getMessage(Locale locale, String key, Object arg0, Object arg1, Object arg2) {
         return this.getMessage(locale, key, new Object[] { arg0, arg1, arg2 });
     }
 
     /**
      * Returns a text message after parametric replacement of the specified
-     * parameter placeholders.  A null string result will never be returned by
+     * parameter placeholders. A null string result will never be returned by
      * this method.
      *
-     * @param locale The requested message Locale, or <code>null</code> for
-     *               the system default Locale
-     * @param key    The message key to look up
-     * @param arg0   The replacement for placeholder {0} in the message
-     * @param arg1   The replacement for placeholder {1} in the message
-     * @param arg2   The replacement for placeholder {2} in the message
-     * @param arg3   The replacement for placeholder {3} in the message
+     * @param locale
+     *            The requested message Locale, or <code>null</code> for the
+     *            system default Locale
+     * @param key
+     *            The message key to look up
+     * @param arg0
+     *            The replacement for placeholder {0} in the message
+     * @param arg1
+     *            The replacement for placeholder {1} in the message
+     * @param arg2
+     *            The replacement for placeholder {2} in the message
+     * @param arg3
+     *            The replacement for placeholder {3} in the message
      */
-    public String getMessage(Locale locale, String key, Object arg0,
-        Object arg1, Object arg2, Object arg3) {
-        return this.getMessage(locale, key,
-            new Object[] { arg0, arg1, arg2, arg3 });
+    public String getMessage(Locale locale, String key, Object arg0, Object arg1, Object arg2, Object arg3) {
+        return this.getMessage(locale, key, new Object[] { arg0, arg1, arg2, arg3 });
     }
 
     /**
-     * Return <code>true</code> if there is a defined message for the
-     * specified key in the system default locale.
+     * Return <code>true</code> if there is a defined message for the specified
+     * key in the system default locale.
      *
-     * @param key The message key to look up
+     * @param key
+     *            The message key to look up
      */
     public boolean isPresent(String key) {
         return this.isPresent(null, key);
     }
 
     /**
-     * Return <code>true</code> if there is a defined message for the
-     * specified key in the specified Locale.
+     * Return <code>true</code> if there is a defined message for the specified
+     * key in the specified Locale.
      *
-     * @param locale The requested message Locale, or <code>null</code> for
-     *               the system default Locale
-     * @param key    The message key to look up
+     * @param locale
+     *            The requested message Locale, or <code>null</code> for the
+     *            system default Locale
+     * @param key
+     *            The message key to look up
      */
     public boolean isPresent(Locale locale, String key) {
         String message = getMessage(locale, key);
@@ -412,7 +459,8 @@ public abstract class MessageResources implements Serializable {
      * Escape any single quote characters that are included in the specified
      * message string.
      *
-     * @param string The string to be escaped
+     * @param string
+     *            The string to be escaped
      */
     protected String escape(String string) {
         if (!isEscape()) {
@@ -444,30 +492,34 @@ public abstract class MessageResources implements Serializable {
      * <strong>NOTE</strong> - The locale key for the default Locale in our
      * environment is a zero length String.
      *
-     * @param locale The locale for which a key is desired
+     * @param locale
+     *            The locale for which a key is desired
      */
     protected String localeKey(Locale locale) {
         return (locale == null) ? "" : locale.toString();
     }
 
     /**
-     * Compute and return a key to be used in caching information by Locale
-     * and message key.
+     * Compute and return a key to be used in caching information by Locale and
+     * message key.
      *
-     * @param locale The Locale for which this format key is calculated
-     * @param key    The message key for which this format key is calculated
+     * @param locale
+     *            The Locale for which this format key is calculated
+     * @param key
+     *            The message key for which this format key is calculated
      */
     protected String messageKey(Locale locale, String key) {
         return (localeKey(locale) + "." + key);
     }
 
     /**
-     * Compute and return a key to be used in caching information by locale
-     * key and message key.
+     * Compute and return a key to be used in caching information by locale key
+     * and message key.
      *
-     * @param localeKey The locale key for which this cache key is calculated
-     * @param key       The message key for which this cache key is
-     *                  calculated
+     * @param localeKey
+     *            The locale key for which this cache key is calculated
+     * @param key
+     *            The message key for which this cache key is calculated
      */
     protected String messageKey(String localeKey, String key) {
         return (localeKey + "." + key);
@@ -477,10 +529,10 @@ public abstract class MessageResources implements Serializable {
      * Create and return an instance of <code>MessageResources</code> for the
      * created by the default <code>MessageResourcesFactory</code>.
      *
-     * @param config Configuration parameter for this message bundle.
+     * @param config
+     *            Configuration parameter for this message bundle.
      */
-    public synchronized static MessageResources getMessageResources(
-        String config) {
+    public synchronized static MessageResources getMessageResources(String config) {
         if (defaultFactory == null) {
             defaultFactory = MessageResourcesFactory.createFactory();
         }
@@ -491,7 +543,8 @@ public abstract class MessageResources implements Serializable {
     /**
      * Log a message to the Writer that has been configured for our use.
      *
-     * @param message The message to be logged
+     * @param message
+     *            The message to be logged
      */
     public void log(String message) {
         log.debug(message);
@@ -501,8 +554,10 @@ public abstract class MessageResources implements Serializable {
      * Log a message and exception to the Writer that has been configured for
      * our use.
      *
-     * @param message   The message to be logged
-     * @param throwable The exception to be logged
+     * @param message
+     *            The message to be logged
+     * @param throwable
+     *            The exception to be logged
      */
     public void log(String message, Throwable throwable) {
         log.debug(message, throwable);
