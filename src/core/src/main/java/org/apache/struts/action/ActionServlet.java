@@ -381,12 +381,11 @@ public class ActionServlet extends HttpServlet {
             /*
              * Shuliang: 2014/11/1
              * get the ActionServlet name and the URL mapping from Web.xml through apache Digester.
-             * note, this version (1.3.10) only support one URL mapping of ActionServlet.
-             *  
+             * note, this version (1.3.10) only support one URL mapping of the ActionServlet.
+             *
              */
             initServlet();
-            
-            
+
             /*
              * Shuliang: 2014/11/1
              * chain of responsibility, need to double check the common-chain source code
@@ -399,11 +398,11 @@ public class ActionServlet extends HttpServlet {
              * store the servlet into ServletContext
              */
             getServletContext().setAttribute(Globals.ACTION_SERVLET_KEY, this);
-            
-            
+
             initModuleConfigFactory();
 
             // Initialize modules as needed
+            // shuliang: parse struts-config.xml file
             ModuleConfig moduleConfig = initModuleConfig("", config);
 
             initModuleMessageResources(moduleConfig);
@@ -412,6 +411,7 @@ public class ActionServlet extends HttpServlet {
             initModuleForwards(moduleConfig);
             initModuleExceptionConfigs(moduleConfig);
             initModuleActions(moduleConfig);
+
             moduleConfig.freeze();
 
             Enumeration names = getServletConfig().getInitParameterNames();
@@ -1446,8 +1446,7 @@ public class ActionServlet extends HttpServlet {
         for (int i = 0; i < actionConfigs.length; i++) {
             ActionConfig actionConfig = actionConfigs[i];
 
-            // Verify that required fields are all present for the forward
-            // configs
+            // Verify that required fields are all present for the forward configs
             ForwardConfig[] forwards = actionConfig.findForwardConfigs();
 
             for (int j = 0; j < forwards.length; j++) {
@@ -1650,6 +1649,8 @@ public class ActionServlet extends HttpServlet {
         configDigester.setNamespaceAware(true);
         configDigester.setValidating(this.isValidating());
         configDigester.setUseContextClassLoader(true);
+
+
         configDigester.addRuleSet(new ConfigRuleSet());
 
         for (int i = 0; i < registrations.length; i += 2) {
@@ -1758,6 +1759,20 @@ public class ActionServlet extends HttpServlet {
      * {@link CatalogFactory} instance for this application.
      * </p>
      *
+     * Shuliang: 2014/11/2
+     * how does it process the chain-config.xml?? where to store the result??? 
+     * 
+     * the chain configuration is stored in the CategroyFactoryBase, for structs 1.3.10, it
+     * defines three chains, they are,
+     * 1. process-action
+     * 2. process-view
+     * 3. servlet-exception
+     * 
+     * each of the chain contain serveral command/filters, and they will be executed in the sequence
+     * that comes in the chain-config.xml
+     * 
+     * 
+     * 
      * @throws ServletException
      *             if an error occurs.
      */
@@ -1769,6 +1784,8 @@ public class ActionServlet extends HttpServlet {
             value = getServletConfig().getInitParameter("chainConfig");
 
             if (value != null) {
+                
+                // Shuliang: the configuration of reponsible chain
                 chainConfig = value;
             }
 

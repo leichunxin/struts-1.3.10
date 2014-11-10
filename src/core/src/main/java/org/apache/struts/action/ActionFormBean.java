@@ -23,35 +23,45 @@ package org.apache.struts.action;
 import org.apache.struts.config.FormBeanConfig;
 
 /**
- * <p>An <strong>ActionFormBean</strong> is the definition of a form bean that
- * is loaded from a <code>&lt;form-bean&gt;</code> element in the Struts
+ * <p>
+ * An <strong>ActionFormBean</strong> is the definition of a form bean that is
+ * loaded from a <code>&lt;form-bean&gt;</code> element in the Struts
  * configuration file. It can be subclassed as necessary to add additional
- * properties.</p>
+ * properties.
+ * </p>
  *
- * <p>Since Struts 1.1 <code>ActionFormBean</code> extends
- * <code>FormBeanConfig</code>.</p>
+ * <p>
+ * Since Struts 1.1 <code>ActionFormBean</code> extends
+ * <code>FormBeanConfig</code>.
+ * </p>
  *
- * <p><strong>NOTE</strong> - This class would have been deprecated and
- * replaced by <code>org.apache.struts.config.FormBeanConfig</code> except for
- * the fact that it is part of the public API that existing applications are
- * using.</p>
+ * <p>
+ * <strong>NOTE</strong> - This class would have been deprecated and replaced by
+ * <code>org.apache.struts.config.FormBeanConfig</code> except for the fact that
+ * it is part of the public API that existing applications are using.
+ * </p>
  *
- * @version $Rev: 471754 $ $Date: 2005-05-14 01:09:32 -0400 (Sat, 14 May 2005)
- *          $
+ * @version $Rev: 471754 $ $Date: 2005-05-14 01:09:32 -0400 (Sat, 14 May 2005) $
  */
 public class ActionFormBean extends FormBeanConfig {
     /**
-     * <p>Construct an instance with default vaslues.</p>
+     * <p>
+     * Construct an instance with default vaslues.
+     * </p>
      */
     public ActionFormBean() {
         super();
     }
 
     /**
-     * <p>Construct an instance with the specified values.</p>
+     * <p>
+     * Construct an instance with the specified values.
+     * </p>
      *
-     * @param name Form bean name
-     * @param type Fully qualified class name
+     * @param name
+     *            Form bean name
+     * @param type
+     *            Fully qualified class name
      */
     public ActionFormBean(String name, String type) {
         super();

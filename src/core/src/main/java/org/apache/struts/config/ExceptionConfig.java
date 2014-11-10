@@ -23,21 +23,21 @@ package org.apache.struts.config;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * <p>A JavaBean representing the configuration information of an
- * <code>&lt;exception&gt;</code> element from a Struts configuration
- * file.</p>
+ * <p>
+ * A JavaBean representing the configuration information of an
+ * <code>&lt;exception&gt;</code> element from a Struts configuration file.
+ * </p>
  *
- * @version $Rev: 471754 $ $Date: 2005-08-06 18:03:30 -0400 (Sat, 06 Aug 2005)
- *          $
+ * @version $Rev: 471754 $ $Date: 2005-08-06 18:03:30 -0400 (Sat, 06 Aug 2005) $
  * @since Struts 1.1
  */
 public class ExceptionConfig extends BaseConfig {
     // ------------------------------------------------------------- Properties
 
     /**
-     * The servlet context attribute under which the message resources bundle
-     * to be used for this exception is located.  If not set, the default
-     * message resources for the current module is assumed.
+     * The servlet context attribute under which the message resources bundle to
+     * be used for this exception is located. If not set, the default message
+     * resources for the current module is assumed.
      */
     protected String bundle = null;
 
@@ -53,8 +53,8 @@ public class ExceptionConfig extends BaseConfig {
     protected boolean extensionProcessed = false;
 
     /**
-     * The fully qualified Java class name of the exception handler class
-     * which should be instantiated to handle this exception.
+     * The fully qualified Java class name of the exception handler class which
+     * should be instantiated to handle this exception.
      */
     protected String handler = "org.apache.struts.action.ExceptionHandler";
 
@@ -65,14 +65,14 @@ public class ExceptionConfig extends BaseConfig {
     protected String key = null;
 
     /**
-     * The module-relative path of the resource to forward to if this
-     * exception occurs during an <code>Action</code>.
+     * The module-relative path of the resource to forward to if this exception
+     * occurs during an <code>Action</code>.
      */
     protected String path = null;
 
     /**
-     * The scope in which we should expose the ActionMessage for this
-     * exception handler.
+     * The scope in which we should expose the ActionMessage for this exception
+     * handler.
      */
     protected String scope = "request";
 
@@ -173,17 +173,20 @@ public class ExceptionConfig extends BaseConfig {
     // ------------------------------------------------------ Protected Methods
 
     /**
-     * <p>Traces the hierarchy of this object to check if any of the ancestors
-     * are extending this instance.</p>
+     * <p>
+     * Traces the hierarchy of this object to check if any of the ancestors are
+     * extending this instance.
+     * </p>
      *
-     * @param moduleConfig The {@link ModuleConfig} that this config is from.
-     * @param actionConfig The {@link ActionConfig} that this config is from,
-     *                     if applicable.  This parameter must be null if this
-     *                     is a global handler.
+     * @param moduleConfig
+     *            The {@link ModuleConfig} that this config is from.
+     * @param actionConfig
+     *            The {@link ActionConfig} that this config is from, if
+     *            applicable. This parameter must be null if this is a global
+     *            handler.
      * @return true if circular inheritance was detected.
      */
-    protected boolean checkCircularInheritance(ModuleConfig moduleConfig,
-        ActionConfig actionConfig) {
+    protected boolean checkCircularInheritance(ModuleConfig moduleConfig, ActionConfig actionConfig) {
         String ancestorType = getExtends();
 
         if (ancestorType == null) {
@@ -197,7 +200,8 @@ public class ExceptionConfig extends BaseConfig {
         if (actionConfig != null) {
             ancestor = actionConfig.findExceptionConfig(ancestorType);
 
-            // If we found *this*, set ancestor to null to check for a global def
+            // If we found *this*, set ancestor to null to check for a global
+            // def
             if (ancestor == this) {
                 ancestor = null;
             }
@@ -209,8 +213,8 @@ public class ExceptionConfig extends BaseConfig {
 
             if (ancestor != null) {
                 // If the ancestor is a global handler, set actionConfig
-                //  to null so further searches are only done among
-                //  global handlers.
+                // to null so further searches are only done among
+                // global handlers.
                 actionConfig = null;
             }
         }
@@ -227,13 +231,13 @@ public class ExceptionConfig extends BaseConfig {
             // check against ancestors extending same typed ancestors
             if (ancestor.getType().equals(ancestorType)) {
                 // If the ancestor is extending a config for the same type,
-                //  make sure we look for its ancestor in the global handlers.
-                //  If we're already at that level, we return false.
+                // make sure we look for its ancestor in the global handlers.
+                // If we're already at that level, we return false.
                 if (actionConfig == null) {
                     return false;
                 } else {
                     // Set actionConfig = null to force us to look for global
-                    //  forwards
+                    // forwards
                     actionConfig = null;
                 }
             }
@@ -262,33 +266,36 @@ public class ExceptionConfig extends BaseConfig {
     // --------------------------------------------------------- Public Methods
 
     /**
-     * <p>Inherit values that have not been overridden from the provided
-     * config object.  Subclasses overriding this method should verify that
-     * the given parameter is of a class that contains a property it is trying
-     * to inherit:</p>
+     * <p>
+     * Inherit values that have not been overridden from the provided config
+     * object. Subclasses overriding this method should verify that the given
+     * parameter is of a class that contains a property it is trying to inherit:
+     * </p>
      *
      * <pre>
      * if (config instanceof MyCustomConfig) {
-     *     MyCustomConfig myConfig =
-     *         (MyCustomConfig) config;
-     *
+     *     MyCustomConfig myConfig = (MyCustomConfig) config;
+     * 
      *     if (getMyCustomProp() == null) {
      *         setMyCustomProp(myConfig.getMyCustomProp());
      *     }
      * }
      * </pre>
      *
-     * <p>If the given <code>config</code> is extending another object, those
+     * <p>
+     * If the given <code>config</code> is extending another object, those
      * extensions should be resolved before it's used as a parameter to this
-     * method.</p>
+     * method.
+     * </p>
      *
-     * @param config The object that this instance will be inheriting its
-     *               values from.
+     * @param config
+     *            The object that this instance will be inheriting its values
+     *            from.
      * @see #processExtends(ModuleConfig, ActionConfig)
      */
-    public void inheritFrom(ExceptionConfig config)
-        throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, InvocationTargetException {
+    public void inheritFrom(ExceptionConfig config) throws ClassNotFoundException, IllegalAccessException, InstantiationException,
+            InvocationTargetException
+    {
         if (configured) {
             throw new IllegalStateException("Configuration is frozen");
         }
@@ -322,21 +329,23 @@ public class ExceptionConfig extends BaseConfig {
     }
 
     /**
-     * <p>Inherit configuration information from the ExceptionConfig that this
-     * instance is extending.  This method verifies that any exception config
+     * <p>
+     * Inherit configuration information from the ExceptionConfig that this
+     * instance is extending. This method verifies that any exception config
      * object that it inherits from has also had its processExtends() method
-     * called.</p>
+     * called.
+     * </p>
      *
-     * @param moduleConfig The {@link ModuleConfig} that this config is from.
-     * @param actionConfig The {@link ActionConfig} that this config is from,
-     *                     if applicable.  This must be null for global
-     *                     forwards.
+     * @param moduleConfig
+     *            The {@link ModuleConfig} that this config is from.
+     * @param actionConfig
+     *            The {@link ActionConfig} that this config is from, if
+     *            applicable. This must be null for global forwards.
      * @see #inheritFrom(ExceptionConfig)
      */
-    public void processExtends(ModuleConfig moduleConfig,
-        ActionConfig actionConfig)
-        throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, InvocationTargetException {
+    public void processExtends(ModuleConfig moduleConfig, ActionConfig actionConfig) throws ClassNotFoundException, IllegalAccessException,
+            InstantiationException, InvocationTargetException
+    {
         if (configured) {
             throw new IllegalStateException("Configuration is frozen");
         }
@@ -347,15 +356,14 @@ public class ExceptionConfig extends BaseConfig {
             ExceptionConfig baseConfig = null;
 
             // We only check the action config if we're not a global handler
-            boolean checkActionConfig =
-                (this != moduleConfig.findExceptionConfig(getType()));
+            boolean checkActionConfig = (this != moduleConfig.findExceptionConfig(getType()));
 
             // ... and the action config was provided
             checkActionConfig &= (actionConfig != null);
 
             // ... and we're not extending a config with the same type value
             // (because if we are, that means we're an action-level handler
-            //  extending a global handler).
+            // extending a global handler).
             checkActionConfig &= !ancestorType.equals(getType());
 
             // We first check in the action config's exception handlers
@@ -369,15 +377,13 @@ public class ExceptionConfig extends BaseConfig {
             }
 
             if (baseConfig == null) {
-                throw new NullPointerException("Unable to find "
-                    + "handler for '" + ancestorType + "' to extend.");
+                throw new NullPointerException("Unable to find " + "handler for '" + ancestorType + "' to extend.");
             }
 
             // Check for circular inheritance and make sure the base config's
-            //  own inheritance has been processed already
+            // own inheritance has been processed already
             if (checkCircularInheritance(moduleConfig, actionConfig)) {
-                throw new IllegalArgumentException(
-                    "Circular inheritance detected for forward " + getType());
+                throw new IllegalArgumentException("Circular inheritance detected for forward " + getType());
             }
 
             if (!baseConfig.isExtensionProcessed()) {

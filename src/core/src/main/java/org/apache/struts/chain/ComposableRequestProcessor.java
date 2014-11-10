@@ -291,6 +291,8 @@ public class ComposableRequestProcessor extends RequestProcessor {
      */
     public void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Wrap the request in the case of a multipart request
+
+        // shuliang: check the details
         request = processMultipart(request);
 
         // Create and populate a Context for this request

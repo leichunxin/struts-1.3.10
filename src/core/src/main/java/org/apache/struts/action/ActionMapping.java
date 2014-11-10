@@ -28,41 +28,48 @@ import org.apache.struts.config.ForwardConfig;
 import java.util.ArrayList;
 
 /**
- * <p>An <strong>ActionMapping</strong> represents the information that the
+ * <p>
+ * An <strong>ActionMapping</strong> represents the information that the
  * controller, <code>RequestProcessor</code>, knows about the mapping of a
- * particular request to an instance of a particular <code>Action</code>
- * class. The <code>ActionMapping</code> instance used to select a particular
+ * particular request to an instance of a particular <code>Action</code> class.
+ * The <code>ActionMapping</code> instance used to select a particular
  * <code>Action</code> is passed on to that <code>Action</code>, thereby
  * providing access to any custom configuration information included with the
- * <code>ActionMapping</code> object.</p>
+ * <code>ActionMapping</code> object.
+ * </p>
  *
- * <p>Since Struts 1.1 this class extends <code>ActionConfig</code>.
+ * <p>
+ * Since Struts 1.1 this class extends <code>ActionConfig</code>.
  *
- * <p><strong>NOTE</strong> - This class would have been deprecated and
- * replaced by <code>org.apache.struts.config.ActionConfig</code> except for
- * the fact that it is part of the public API that existing applications are
- * using.</p>
+ * <p>
+ * <strong>NOTE</strong> - This class would have been deprecated and replaced by
+ * <code>org.apache.struts.config.ActionConfig</code> except for the fact that
+ * it is part of the public API that existing applications are using.
+ * </p>
  *
- * @version $Rev: 471754 $ $Date: 2005-08-26 21:58:39 -0400 (Fri, 26 Aug 2005)
- *          $
+ * @version $Rev: 471754 $ $Date: 2005-08-26 21:58:39 -0400 (Fri, 26 Aug 2005) $
  */
 public class ActionMapping extends ActionConfig {
     /**
-     * <p>Commons Logging instance.</p>
+     * <p>
+     * Commons Logging instance.
+     * </p>
      *
      * @since Struts 1.2.8
      */
     private static Log log = LogFactory.getLog(ActionMapping.class);
 
     /**
-     * <p>Find and return the <code>ForwardConfig</code> instance defining how
+     * <p>
+     * Find and return the <code>ForwardConfig</code> instance defining how
      * forwarding to the specified logical name should be handled. This is
      * performed by checking local and then global configurations for the
-     * specified forwarding configuration. If no forwarding configuration can
-     * be found, return <code>null</code>.</p>
+     * specified forwarding configuration. If no forwarding configuration can be
+     * found, return <code>null</code>.
+     * </p>
      *
-     * @param forwardName Logical name of the forwarding instance to be
-     *                    returned
+     * @param forwardName
+     *            Logical name of the forwarding instance to be returned
      * @return The local or global forward with the specified name.
      */
     public ActionForward findForward(String forwardName) {
@@ -82,9 +89,10 @@ public class ActionMapping extends ActionConfig {
     }
 
     /**
-     * <p>Return the logical names of all locally defined forwards for this
-     * mapping. If there are no such forwards, a zero-length array is
-     * returned.</p>
+     * <p>
+     * Return the logical names of all locally defined forwards for this
+     * mapping. If there are no such forwards, a zero-length array is returned.
+     * </p>
      *
      * @return The forward names for this action mapping.
      */
@@ -100,8 +108,10 @@ public class ActionMapping extends ActionConfig {
     }
 
     /**
-     * <p>Create (if necessary) and return an {@link ActionForward} that
-     * corresponds to the <code>input</code> property of this Action.</p>
+     * <p>
+     * Create (if necessary) and return an {@link ActionForward} that
+     * corresponds to the <code>input</code> property of this Action.
+     * </p>
      *
      * @return The input forward for this action mapping.
      * @since Struts 1.1

@@ -57,72 +57,68 @@ public class ConfigRuleSet extends RuleSetBase {
     public void addRuleInstances(Digester digester) {
         ClassLoader cl = digester.getClassLoader();
 
-        digester.addRule("struts-config/action-mappings", new SetActionMappingClassRule());
-
+        // 1. Shuliang; action-mappings configuration
+        digester.addRule(         "struts-config/action-mappings", new SetActionMappingClassRule());
         digester.addFactoryCreate("struts-config/action-mappings/action", new ActionMappingFactory(cl));
         digester.addSetProperties("struts-config/action-mappings/action");
-        digester.addSetNext("struts-config/action-mappings/action", "addActionConfig", "org.apache.struts.config.ActionConfig");
-
-        digester.addRule("struts-config/action-mappings/action/set-property", new BaseConfigSetPropertyRule());
-
-        digester.addObjectCreate("struts-config/action-mappings/action/exception", "org.apache.struts.config.ExceptionConfig", "className");
+        digester.addSetNext(      "struts-config/action-mappings/action", "addActionConfig", "org.apache.struts.config.ActionConfig");
+        digester.addRule(         "struts-config/action-mappings/action/set-property", new BaseConfigSetPropertyRule());
+        digester.addObjectCreate( "struts-config/action-mappings/action/exception", "org.apache.struts.config.ExceptionConfig", "className");
         digester.addSetProperties("struts-config/action-mappings/action/exception");
-        digester.addSetNext("struts-config/action-mappings/action/exception", "addExceptionConfig", "org.apache.struts.config.ExceptionConfig");
-
-        digester.addRule("struts-config/action-mappings/action/exception/set-property", new BaseConfigSetPropertyRule());
-
+        digester.addSetNext(      "struts-config/action-mappings/action/exception", "addExceptionConfig", "org.apache.struts.config.ExceptionConfig");
+        digester.addRule(         "struts-config/action-mappings/action/exception/set-property", new BaseConfigSetPropertyRule());
         digester.addFactoryCreate("struts-config/action-mappings/action/forward", new ActionForwardFactory(cl));
         digester.addSetProperties("struts-config/action-mappings/action/forward");
-        digester.addSetNext("struts-config/action-mappings/action/forward", "addForwardConfig", "org.apache.struts.config.ForwardConfig");
+        digester.addSetNext(      "struts-config/action-mappings/action/forward", "addForwardConfig", "org.apache.struts.config.ForwardConfig");
+        digester.addRule(         "struts-config/action-mappings/action/forward/set-property", new BaseConfigSetPropertyRule());
 
-        digester.addRule("struts-config/action-mappings/action/forward/set-property", new BaseConfigSetPropertyRule());
+        
+        // 2. shuliang: 2014/11/10, controller configuration
+        digester.addObjectCreate(   "struts-config/controller", "org.apache.struts.config.ControllerConfig", "className");
+        digester.addSetProperties(  "struts-config/controller");
+        digester.addSetNext(        "struts-config/controller", "setControllerConfig", "org.apache.struts.config.ControllerConfig");
+        digester.addRule(           "struts-config/controller/set-property", new BaseConfigSetPropertyRule());
 
-        digester.addObjectCreate("struts-config/controller", "org.apache.struts.config.ControllerConfig", "className");
-        digester.addSetProperties("struts-config/controller");
-        digester.addSetNext("struts-config/controller", "setControllerConfig", "org.apache.struts.config.ControllerConfig");
 
-        digester.addRule("struts-config/controller/set-property", new BaseConfigSetPropertyRule());
+        // 3. Shuliang: form-beans configuration
+        digester.addRule(           "struts-config/form-beans", new SetActionFormBeanClassRule());
+        digester.addFactoryCreate(  "struts-config/form-beans/form-bean", new ActionFormBeanFactory(cl));
+        digester.addSetProperties(  "struts-config/form-beans/form-bean");
+        digester.addSetNext(        "struts-config/form-beans/form-bean", "addFormBeanConfig", "org.apache.struts.config.FormBeanConfig");
+        digester.addObjectCreate(   "struts-config/form-beans/form-bean/form-property", "org.apache.struts.config.FormPropertyConfig", "className");
+        digester.addSetProperties(  "struts-config/form-beans/form-bean/form-property");
+        digester.addSetNext(        "struts-config/form-beans/form-bean/form-property", "addFormPropertyConfig", "org.apache.struts.config.FormPropertyConfig");
+        digester.addRule(           "struts-config/form-beans/form-bean/form-property/set-property", new BaseConfigSetPropertyRule());
+        digester.addRule(           "struts-config/form-beans/form-bean/set-property", new BaseConfigSetPropertyRule());
 
-        digester.addRule("struts-config/form-beans", new SetActionFormBeanClassRule());
+        
+        // 4. Shuliang: global-exceptions configuration
+        digester.addObjectCreate(   "struts-config/global-exceptions/exception", "org.apache.struts.config.ExceptionConfig", "className");
+        digester.addSetProperties(  "struts-config/global-exceptions/exception");
+        digester.addSetNext(        "struts-config/global-exceptions/exception", "addExceptionConfig", "org.apache.struts.config.ExceptionConfig");
+        digester.addRule(           "struts-config/global-exceptions/exception/set-property", new BaseConfigSetPropertyRule());
 
-        digester.addFactoryCreate("struts-config/form-beans/form-bean", new ActionFormBeanFactory(cl));
-        digester.addSetProperties("struts-config/form-beans/form-bean");
-        digester.addSetNext("struts-config/form-beans/form-bean", "addFormBeanConfig", "org.apache.struts.config.FormBeanConfig");
+        
+        // 5. Shuliang: global-forwards configuration
+        digester.addRule(           "struts-config/global-forwards", new SetActionForwardClassRule());
+        digester.addFactoryCreate(  "struts-config/global-forwards/forward", new GlobalForwardFactory(cl));
+        digester.addSetProperties(  "struts-config/global-forwards/forward");
+        digester.addSetNext(        "struts-config/global-forwards/forward", "addForwardConfig", "org.apache.struts.config.ForwardConfig");
+        digester.addRule(           "struts-config/global-forwards/forward/set-property", new BaseConfigSetPropertyRule());
 
-        digester.addObjectCreate("struts-config/form-beans/form-bean/form-property", "org.apache.struts.config.FormPropertyConfig", "className");
-        digester.addSetProperties("struts-config/form-beans/form-bean/form-property");
-        digester.addSetNext("struts-config/form-beans/form-bean/form-property", "addFormPropertyConfig",
-                "org.apache.struts.config.FormPropertyConfig");
+        
+        // 6. Shuliang; message-resources 
+        digester.addObjectCreate(   "struts-config/message-resources", "org.apache.struts.config.MessageResourcesConfig", "className");
+        digester.addSetProperties(  "struts-config/message-resources");
+        digester.addSetNext(        "struts-config/message-resources", "addMessageResourcesConfig", "org.apache.struts.config.MessageResourcesConfig");
+        digester.addRule(           "struts-config/message-resources/set-property", new BaseConfigSetPropertyRule());
 
-        digester.addRule("struts-config/form-beans/form-bean/form-property/set-property", new BaseConfigSetPropertyRule());
-
-        digester.addRule("struts-config/form-beans/form-bean/set-property", new BaseConfigSetPropertyRule());
-
-        digester.addObjectCreate("struts-config/global-exceptions/exception", "org.apache.struts.config.ExceptionConfig", "className");
-        digester.addSetProperties("struts-config/global-exceptions/exception");
-        digester.addSetNext("struts-config/global-exceptions/exception", "addExceptionConfig", "org.apache.struts.config.ExceptionConfig");
-
-        digester.addRule("struts-config/global-exceptions/exception/set-property", new BaseConfigSetPropertyRule());
-
-        digester.addRule("struts-config/global-forwards", new SetActionForwardClassRule());
-
-        digester.addFactoryCreate("struts-config/global-forwards/forward", new GlobalForwardFactory(cl));
-        digester.addSetProperties("struts-config/global-forwards/forward");
-        digester.addSetNext("struts-config/global-forwards/forward", "addForwardConfig", "org.apache.struts.config.ForwardConfig");
-
-        digester.addRule("struts-config/global-forwards/forward/set-property", new BaseConfigSetPropertyRule());
-
-        digester.addObjectCreate("struts-config/message-resources", "org.apache.struts.config.MessageResourcesConfig", "className");
-        digester.addSetProperties("struts-config/message-resources");
-        digester.addSetNext("struts-config/message-resources", "addMessageResourcesConfig", "org.apache.struts.config.MessageResourcesConfig");
-
-        digester.addRule("struts-config/message-resources/set-property", new BaseConfigSetPropertyRule());
-
-        digester.addObjectCreate("struts-config/plug-in", "org.apache.struts.config.PlugInConfig");
-        digester.addSetProperties("struts-config/plug-in");
-        digester.addSetNext("struts-config/plug-in", "addPlugInConfig", "org.apache.struts.config.PlugInConfig");
-
-        digester.addRule("struts-config/plug-in/set-property", new PlugInSetPropertyRule());
+        
+        // 7. Shuliang: plug-in
+        digester.addObjectCreate(   "struts-config/plug-in", "org.apache.struts.config.PlugInConfig");
+        digester.addSetProperties(  "struts-config/plug-in");
+        digester.addSetNext(        "struts-config/plug-in", "addPlugInConfig", "org.apache.struts.config.PlugInConfig");
+        digester.addRule(           "struts-config/plug-in/set-property", new PlugInSetPropertyRule());
 
         // PluginConfig does not extend BaseConfig, at least for now.
     }
